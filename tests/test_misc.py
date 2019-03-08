@@ -5,6 +5,8 @@ import pytest
 import prestools.misc as pm
 
 
+# pm.flatten()
+
 def test_flatten_no_nesting():
     expect = [0, 1, 2]
     result = pm.flatten([0, 1, 2])
@@ -42,4 +44,33 @@ def test_flatten_multiple_types_drop_null():
     assert result == expect
 
 
+# pm.invert_dict()
 
+def test_invert_dict_single_key_single_val():
+    expect = {"A": 1}
+    result = pm.invert_dict({1: ["A"]})
+    assert result == expect
+
+
+def test_invert_dict_single_key_multiple_val():
+    expect = {"A": 1, "I": 1, "E": 1, "U": 1, "O": 1}
+    result = pm.invert_dict({1: ["A", "I", "E", "U", "O"]})
+    assert result == expect
+
+
+def test_invert_dict_single_key_multiple_val_sort_keys():
+    expect = {"A": 1, "E": 1, "I": 1, "O": 1, "U": 1}
+    result = pm.invert_dict({1: ["A", "I", "E", "U", "O"]}, sort_keys=True)
+    assert result == expect
+
+
+def test_invert_dict_multiple_key_multiple_val():
+    expect = {"A": 1, "E": 1, "D": 2, "G": 2}
+    result = pm.invert_dict({1: ["A", "E"], 2: ["D", "G"]})
+    assert result == expect
+
+
+def test_invert_dict_multiple_key_multiple_val_sort_keys():
+    expect = {"A": 1, "D": 2, "E": 1, "G": 2}
+    result = pm.invert_dict({1: ["A", "E"], 2: ["D", "G"]}, sort_keys=True)
+    assert result == expect
