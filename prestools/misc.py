@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 from collections import Iterable
+from typing import List
 
 
 def flatten(iterable: Iterable, drop_null: bool = False) -> list:
@@ -41,3 +42,21 @@ def invert_dict(input_dict: dict, sort_keys: bool = False) -> dict:
     if sort_keys:
         return {el: new_dict[el] for el in sorted(new_dict)}
     return new_dict
+
+
+def prime_factors(number: int) -> List[int]:
+    """
+    Calculate the prime factors of a given natural number. Note that 1 is not a prime number, so it
+    will not be included.
+    :param number: input natural number
+    :return: List[int]
+    """
+    factors = []
+    i = 2
+    while number > 1:
+        if number % i == 0:
+            number = number // i
+            factors.append(i)
+            continue
+        i += 1
+    return factors

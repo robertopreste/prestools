@@ -74,3 +74,35 @@ def test_invert_dict_multiple_key_multiple_val_sort_keys():
     expect = {"A": 1, "D": 2, "E": 1, "G": 2}
     result = pm.invert_dict({1: ["A", "E"], 2: ["D", "G"]}, sort_keys=True)
     assert result == expect
+
+
+# pm.prime_factors()
+
+def test_prime_factors_one():
+    expect = []
+    result = pm.prime_factors(1)
+    assert result == expect
+
+
+def test_prime_factors_square():
+    expect = [3, 3]
+    result = pm.prime_factors(9)
+    assert result == expect
+
+
+def test_prime_factors_cube():
+    expect = [3, 3, 3]
+    result = pm.prime_factors(27)
+    assert result == expect
+
+
+def test_prime_factors_mixed():
+    expect = [5, 17, 23, 461]
+    result = pm.prime_factors(901255)
+    assert result == expect
+
+
+def test_prime_factors_large():
+    expect = [11, 9539, 894119]
+    result = pm.prime_factors(93819012551)
+    assert result == expect
