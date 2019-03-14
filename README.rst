@@ -30,7 +30,12 @@ Miscellaneous functions and utilities for Python programming.
 Features
 --------
 
-* TODO
+Several ready-to-use functions for different tasks:
+
+* bioinformatics (`prestools.bioinf`)
+* clustering (`prestools.clustering`)
+* plotting (`prestools.plotting`)
+* miscellaneous (`prestools.misc`)
 
 Credits
 -------
