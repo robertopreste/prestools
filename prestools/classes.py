@@ -43,7 +43,10 @@ class HierCluster:
         self._coph_matr = value
 
     def __repr__(self):
-        return """HierCluster(linkage: {}, pair_dist: {}, 
-        coph_dist: {}, coph_matr: {})""".format(self.linkage, self.pair_dist,
-                                                self.coph_dist, self.coph_matr)
+        return """HierCluster(
+        linkage: {}, 
+        pair_dist: {}, 
+        coph_dist: {}, 
+        coph_matr: {}
+        )""".format(self.linkage, self.pair_dist, self.coph_dist, self.coph_matr)
 
