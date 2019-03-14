@@ -3,30 +3,35 @@
 # Created by Roberto Preste
 import math
 import random
-from typing import List, Tuple, Union, Any, Optional
+from typing import Optional
 
 nt_list = ["A", "C", "G", "T"]
 
-aa_list = ["A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V",
-           "W", "Y"]
+aa_list = ["A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P",
+           "Q", "R", "S", "T", "V", "W", "Y"]
 
 
-nt_dict = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine", "U": "Uracil",
-           "R": "A/G", "Y": "C/T", "S": "G/C", "W": "A/T", "K": "G/T", "M": "A/C", "B": "C/G/T",
-           "D": "A/G/T", "H": "A/C/T", "V": "A/C/G", "N": "A/C/G/T", "./-": "gap"}
+nt_dict = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine",
+           "U": "Uracil", "R": "A/G", "Y": "C/T", "S": "G/C", "W": "A/T",
+           "K": "G/T", "M": "A/C", "B": "C/G/T", "D": "A/G/T", "H": "A/C/T",
+           "V": "A/C/G", "N": "A/C/G/T", "./-": "gap"}
 
 aa_dict = {"A": ("Ala", "Alanine"), "B": ("Asx", "Aspartic Acid/Asparagine"),
-           "C": ("Cys", "Cysteine"), "D": ("Asp", "Aspartic Acid"), "E": ("Glu", "Glutamic Acid"),
-           "F": ("Phe", "Phenylalanine"), "G": ("Gly", "Glycine"), "H": ("His", "Histidine"),
-           "I": ("Ile", "Isoleucine"), "K": ("Lys", "Lysine"), "L": ("Leu", "Leucine"),
-           "M": ("Met", "Methionine"), "N": ("Asn", "Asparagine"), "P": ("Pro", "Proline"),
-           "Q": ("Gln", "Glutamine"), "R": ("Arg", "Arginine"), "S": ("Ser", "Serine"),
-           "T": ("Thr", "Threonine"), "V": ("Val", "Valine"), "W": ("Trp", "Tryptophan"),
-           "X": ("Xaa", "Any"), "Y": ("Tyr", "Tyrosine"), "Z": ("Glx", "Glutamine/Glutamic Acid"),
-           "*": ("***", "Stop")}
+           "C": ("Cys", "Cysteine"), "D": ("Asp", "Aspartic Acid"),
+           "E": ("Glu", "Glutamic Acid"), "F": ("Phe", "Phenylalanine"),
+           "G": ("Gly", "Glycine"), "H": ("His", "Histidine"),
+           "I": ("Ile", "Isoleucine"), "K": ("Lys", "Lysine"),
+           "L": ("Leu", "Leucine"), "M": ("Met", "Methionine"),
+           "N": ("Asn", "Asparagine"), "P": ("Pro", "Proline"),
+           "Q": ("Gln", "Glutamine"), "R": ("Arg", "Arginine"),
+           "S": ("Ser", "Serine"), "T": ("Thr", "Threonine"),
+           "V": ("Val", "Valine"), "W": ("Trp", "Tryptophan"),
+           "X": ("Xaa", "Any"), "Y": ("Tyr", "Tyrosine"),
+           "Z": ("Glx", "Glutamine/Glutamic Acid"), "*": ("***", "Stop")}
 
-complem_dict = {"A": "T", "C": "G", "G": "C", "T": "A", "U": "A", "R": "Y", "Y": "R", "S": "W",
-                "W": "S", "K": "M", "M": "K", "B": "A", "D": "C", "H": "G", "V": "T"}
+complem_dict = {"A": "T", "C": "G", "G": "C", "T": "A", "U": "A", "R": "Y",
+                "Y": "R", "S": "W", "W": "S", "K": "M", "M": "K", "B": "A",
+                "D": "C", "H": "G", "V": "T"}
 
 
 def aa_one_to_three(sequence: str) -> str:
@@ -55,12 +60,14 @@ def aa_three_to_one(sequence: str) -> str:
     return new_seq
 
 
-def reverse_complement(sequence: str, conversion: str = "reverse_complement") -> str:
+def reverse_complement(sequence: str,
+                       conversion: str = "reverse_complement") -> str:
     """
-    Convert a nucleotide sequence into its reverse, complement or reverse complement.
+    Convert a nucleotide sequence into its reverse, complement or reverse
+    complement.
     :param str sequence: nucleotide sequence to be converted
-    :param str conversion: type of conversion to perform ('reverse', 'complement',
-    'reverse_complement') (default: 'reverse_complement')
+    :param str conversion: type of conversion to perform ('reverse',
+    'complement', 'reverse_complement') (default: 'reverse_complement')
     :return: str
     """
     if conversion == "reverse":
@@ -75,7 +82,8 @@ def shuffle(sequence: str, random_state: Optional[int] = None) -> str:
     """
     Randomly shuffle a sequence, maintaining the same nucleotide composition.
     :param str sequence: input sequence to shuffle
-    :param Optional[int] random_state: optional random state seed, can be used for reproducibility
+    :param Optional[int] random_state: optional random state seed, can be used
+    for reproducibility
     :return: str
     """
     tmp_seq: str = ""
@@ -96,11 +104,11 @@ def shuffle(sequence: str, random_state: Optional[int] = None) -> str:
 
 def random_sequence(length: int, alphabet: str = "nt") -> str:
     """
-    Create a random sequence of the given length using the specified alphabet (nucleotides or
-    aminoacids).
+    Create a random sequence of the given length using the specified alphabet
+    (nucleotides or aminoacids).
     :param int length: desired length of the random sequence
-    :param str alphabet: character alphabet to use to create the sequence ('nt', 'aa') (default:
-    'nt')
+    :param str alphabet: character alphabet to use to create the sequence
+    ('nt', 'aa') (default: 'nt')
     :return: str
     """
     sequence = ""
@@ -118,4 +126,3 @@ def random_sequence(length: int, alphabet: str = "nt") -> str:
         sequence += temp_char
 
     return sequence
-

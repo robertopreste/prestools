@@ -48,5 +48,7 @@ class HierCluster:
         pair_dist: {}, 
         coph_dist: {}, 
         coph_matr: {}
-        )""".format(self.linkage, self.pair_dist, self.coph_dist, self.coph_matr)
-
+        )""".format(self.linkage,
+                    self.pair_dist,
+                    self.coph_dist,
+                    self.coph_matr)

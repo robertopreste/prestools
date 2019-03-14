@@ -11,16 +11,18 @@ from .classes import HierCluster
 
 
 def hierarchical_clustering(df: Union[pd.DataFrame, np.ndarray],
-                            method: str = "ward") -> Union[HierCluster, None, ValueError]:
+                            method: str = "ward") -> Union[HierCluster,
+                                                           None, ValueError]:
     """
-    Returns clustering created using scipy from a given dataframe of correlations. Uses the
-    HierCluster class available in prestools.classes
+    Returns clustering created using scipy from a given dataframe of
+    correlations. Uses the HierCluster class available in prestools.classes
     :param Union[pd.Dataframe, np.ndarray] df: input dataframe of correlations
-    :param str method: method to be used to cluster the data ['ward', 'single', 'complete',
-    'average', 'weighted', 'centroid', 'median'] (default = 'ward')
+    :param str method: method to be used to cluster the data ['ward', 'single',
+    'complete', 'average', 'weighted', 'centroid', 'median'] (default = 'ward')
     :return: Union[HierCluster, None, ValueError]
     """
-    if method not in ["ward", "single", "complete", "average", "weighted", "centroid", "median"]:
+    if method not in ["ward", "single", "complete", "average",
+                      "weighted", "centroid", "median"]:
         return ValueError("Method not valid!")
     if df.shape == (0, 0) or df.shape == (1, 1):
         return
@@ -34,17 +36,19 @@ def hierarchical_clustering(df: Union[pd.DataFrame, np.ndarray],
 
 def find_n_clusters_elbow(df: Union[pd.DataFrame, np.ndarray],
                           plot: bool = False,
-                          method: str = "ward") -> Union[int, None, ValueError]:
+                          method: str = "ward") -> Union[int,
+                                                         None, ValueError]:
     """
-    Find the suggested number of clusters for the given dataframe of correlations, using the elbow
-    method.
+    Find the suggested number of clusters for the given dataframe of
+    correlations, using the elbow method.
     :param Union[pd.Dataframe, np.ndarray] df: input dataframe of correlations
     :param bool plot: plot the resulting elbow plot (default: False)
-    :param str method: method to be used to cluster the data ['ward', 'single', 'complete',
-    'average', 'weighted', 'centroid', 'median'] (default = 'ward')
+    :param str method: method to be used to cluster the data ['ward', 'single',
+    'complete', 'average', 'weighted', 'centroid', 'median'] (default = 'ward')
     :return:
     """
-    if method not in ["ward", "single", "complete", "average", "weighted", "centroid", "median"]:
+    if method not in ["ward", "single", "complete", "average",
+                      "weighted", "centroid", "median"]:
         return ValueError("Method not valid!")
     if df.shape == (0, 0) or df.shape == (1, 1):
         return
@@ -64,9 +68,8 @@ def find_n_clusters_elbow(df: Union[pd.DataFrame, np.ndarray],
         plt.axvline(n_clusters, color="red", linestyle="--")
         plt.xlabel("num of clusters", fontsize=14)
         plt.ylabel("acceleration of distance growth", fontsize=14)
-        plt.title("Suggested number of clusters: {}".format(n_clusters), fontsize=22)
+        plt.title("Suggested number of clusters: {}".format(n_clusters),
+                  fontsize=22)
         plt.show()
 
     return n_clusters
-
-
