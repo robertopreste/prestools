@@ -17,3 +17,8 @@ History
 
 * Add `hamming_distance()` and `mutate_sequence()` functions in `prestools.bioinf` and related tests;
 * Clean code style.
+
+0.1.3 (WIP)
+===========
+
+* Add command line interface commands and related tests.
