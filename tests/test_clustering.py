@@ -25,11 +25,15 @@ def test_hierarchical_clustering_sample_df(sample_corr_df):
                                [1.0, 3.0, 1.5330362, 2.0],
                                [2.0, 6.0, 1.58692575, 3.0],
                                [5.0, 7.0, 2.20363941, 5.0]])
-    expect_pair_dist = np.array([1.72710741, 1.66240789, 1.60464949, 1.28467895, 1.53450318,
-                                 1.5330362, 1.75119959, 1.61180024, 2.22166604, 1.77772326])
+    expect_pair_dist = np.array([1.72710741, 1.66240789, 1.60464949,
+                                 1.28467895, 1.53450318, 1.5330362,
+                                 1.75119959, 1.61180024, 2.22166604,
+                                 1.77772326])
     expect_coph_dist = 0.7027486505845463
-    expect_coph_matr = np.array([2.20363941, 2.20363941, 2.20363941, 1.28467895, 1.58692575,
-                                 1.5330362, 2.20363941, 1.58692575, 2.20363941, 2.20363941])
+    expect_coph_matr = np.array([2.20363941, 2.20363941, 2.20363941,
+                                 1.28467895, 1.58692575, 1.5330362,
+                                 2.20363941, 1.58692575, 2.20363941,
+                                 2.20363941])
     result = pc.hierarchical_clustering(sample_corr_df)
     assert np.allclose(result.linkage, expect_linkage)
     assert np.allclose(result.pair_dist, expect_pair_dist)
