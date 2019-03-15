@@ -40,3 +40,22 @@ def sample_one_entry_df() -> pd.DataFrame:
     df = pd.DataFrame({"feat_a": [1.0]}, index=["feat_a"])
     return df
 
+
+@pytest.fixture
+def sample_nt_sequence() -> str:
+    """
+    Returns a nucleotide sequence with length 100.
+    :return: str
+    """
+    seq = "ACGATCGTAGCTACATAATC" * 5
+    return seq
+
+
+@pytest.fixture
+def sample_aa_sequence() -> str:
+    """
+    Returns an aminoacid sequence with length 100.
+    :return: str
+    """
+    seq = "ACDEFGHIKLMNPQRSTVWY" * 5
+    return seq

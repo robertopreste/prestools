@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
-import math
 import random
 from typing import Optional
 
@@ -34,6 +33,25 @@ complem_dict = {"A": "T", "C": "G", "G": "C", "T": "A", "U": "A", "R": "Y",
                 "D": "C", "H": "G", "V": "T"}
 
 
+def hamming_distance(seq_1: str, seq_2: str,
+                     ignore_case: bool = False) -> int:
+    """
+    Calculate the Hamming distance between two sequences.
+    :param str seq_1: first sequence to compare
+    :param str seq_2: second sequence to compare
+    :param bool ignore_case: ignore case when comparing sequences (default: False)
+    :return: int
+    """
+    if len(seq_1) != len(seq_2):
+        raise ValueError("Cannot calculate Hamming distance of sequences with different lengths.")
+
+    if ignore_case:
+        seq_1 = seq_1.casefold()
+        seq_2 = seq_2.casefold()
+
+    return sum([1 for i in range(len(seq_1)) if seq_1[i] != seq_2[i]])
+
+
 def aa_one_to_three(sequence: str) -> str:
     """
     Convert one-letter aminoacid code to three-letter code.
@@ -51,6 +69,7 @@ def aa_three_to_one(sequence: str) -> str:
     """
     # TODO: this is very ugly, will have to refactor it
     new_seq = ""
+
     for n in range(0, len(sequence), 3):
         aa = sequence[n: n + 3].capitalize()
         for cod in aa_dict:
@@ -70,29 +89,28 @@ def reverse_complement(sequence: str,
     'complement', 'reverse_complement') (default: 'reverse_complement')
     :return: str
     """
+    if conversion not in ["reverse", "complement", "reverse_complement"]:
+        raise ValueError("Invalid conversion argument.")
+
     if conversion == "reverse":
         return sequence[::-1]
     elif conversion == "complement":
         return "".join([complem_dict[nt.upper()] for nt in sequence])
-    else:
-        return "".join([complem_dict[nt.upper()] for nt in sequence])[::-1]
+
+    return "".join([complem_dict[nt.upper()] for nt in sequence])[::-1]
 
 
-def shuffle(sequence: str, random_state: Optional[int] = None) -> str:
+def shuffle_sequence(sequence: str) -> str:
     """
     Randomly shuffle a sequence, maintaining the same nucleotide composition.
     :param str sequence: input sequence to shuffle
-    :param Optional[int] random_state: optional random state seed, can be used
-    for reproducibility
     :return: str
     """
     tmp_seq: str = ""
-    if random_state:
-        random.seed(random_state)
 
     while len(sequence) > 0:
         max_num = len(sequence)
-        rand_num = math.floor(random.random() * max_num)
+        rand_num = random.randrange(max_num)
         tmp_char = sequence[rand_num]
         tmp_seq += tmp_char
         tmp_str_1 = sequence[:rand_num]
@@ -102,7 +120,8 @@ def shuffle(sequence: str, random_state: Optional[int] = None) -> str:
     return tmp_seq
 
 
-def random_sequence(length: int, alphabet: str = "nt") -> str:
+def random_sequence(length: int,
+                    alphabet: str = "nt") -> str:
     """
     Create a random sequence of the given length using the specified alphabet
     (nucleotides or aminoacids).
@@ -111,18 +130,43 @@ def random_sequence(length: int, alphabet: str = "nt") -> str:
     ('nt', 'aa') (default: 'nt')
     :return: str
     """
-    sequence = ""
+    if alphabet not in ["nt", "aa"]:
+        raise ValueError("Invalid alphabet argument.")
 
-    if alphabet == "nt":
-        elems = nt_list
-    elif alphabet == "aa":
-        elems = aa_list
-    else:
-        raise ValueError("alphabet not recognised!")
+    sequence = ""
+    elems = nt_list if alphabet == "nt" else aa_list
 
     for i in range(length):
-        temp_num = random.randint(0, len(elems) - 1)
-        temp_char = elems[temp_num]
+        temp_char = random.choice(elems)
         sequence += temp_char
+
+    return sequence
+
+
+def mutate_sequence(sequence: str,
+                    mutations: int = 1,
+                    alphabet: str = "nt") -> str:
+    """
+    Introduce a specific number of mutations into the given sequence.
+    :param str sequence: input sequence to mutate
+    :param int mutations: number of mutations to introduce (default: 1)
+    :param str alphabet: character alphabet to use to introduce mutations
+    ('nt', 'aa') (default: 'nt')
+    :return: str
+    """
+    if alphabet not in ["nt", "aa"]:
+        raise ValueError("Invalid alphabet argument.")
+
+    elems = nt_list if alphabet == "nt" else aa_list
+
+    for n in range(mutations):
+        max_num = len(sequence)
+        rand_num = random.randrange(max_num)
+        curr_char = sequence[rand_num]
+        mut_char = random.choice(elems)
+        while mut_char == curr_char:
+            mut_char = random.choice(elems)
+
+        sequence = sequence[0: rand_num] + mut_char + sequence[rand_num + 1:]
 
     return sequence
