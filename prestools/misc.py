@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 from collections import Iterable
-from typing import List
+from typing import List, Any, Type
 
 
 def flatten(iterable: Iterable, drop_null: bool = False) -> list:
@@ -64,3 +64,14 @@ def prime_factors(number: int) -> List[int]:
             continue
         i += 1
     return factors
+
+
+def filter_type(input_list: List[Any], target_type: Type) -> List[Any]:
+    """
+    Traverse a list and return a new list with only elements of the original
+    list belonging to a given type.
+    :param List[Any] input_list: input list to filter
+    :param Type target_type:
+    :return: List[Any]
+    """
+    return [el for el in input_list if type(el) == target_type]

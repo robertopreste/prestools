@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import random
-from typing import Optional
+from typing import Union
 
 nt_list = ["A", "C", "G", "T"]
 
@@ -90,7 +90,7 @@ def reverse_complement(sequence: str,
     :return: str
     """
     if conversion not in ["reverse", "complement", "reverse_complement"]:
-        raise ValueError("Invalid conversion argument.")
+        raise ValueError("Invalid conversion option.")
 
     if conversion == "reverse":
         return sequence[::-1]
@@ -120,23 +120,23 @@ def shuffle_sequence(sequence: str) -> str:
     return tmp_seq
 
 
-def random_sequence(length: int,
+def random_sequence(length: Union[int, str],
                     alphabet: str = "nt") -> str:
     """
     Create a random sequence of the given length using the specified alphabet
     (nucleotides or aminoacids).
-    :param int length: desired length of the random sequence
+    :param Union[int, str] length: desired length of the random sequence
     :param str alphabet: character alphabet to use to create the sequence
     ('nt', 'aa') (default: 'nt')
     :return: str
     """
     if alphabet not in ["nt", "aa"]:
-        raise ValueError("Invalid alphabet argument.")
+        raise ValueError("Invalid alphabet option.")
 
     sequence = ""
     elems = nt_list if alphabet == "nt" else aa_list
 
-    for i in range(length):
+    for i in range(int(length)):
         temp_char = random.choice(elems)
         sequence += temp_char
 
@@ -155,7 +155,7 @@ def mutate_sequence(sequence: str,
     :return: str
     """
     if alphabet not in ["nt", "aa"]:
-        raise ValueError("Invalid alphabet argument.")
+        raise ValueError("Invalid alphabet option.")
 
     elems = nt_list if alphabet == "nt" else aa_list
 
