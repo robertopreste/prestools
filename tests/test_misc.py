@@ -109,3 +109,26 @@ def test_prime_factors_large():
     expect = [11, 9539, 894119]
     result = pm.prime_factors(93819012551)
     assert result == expect
+
+
+# pm.filter_type
+
+def test_filter_type_int():
+    expect = [1, 2, 3]
+    result = pm.filter_type([1, [3, "a"], 2, "ab", 3],
+                            int)
+    assert result == expect
+
+
+def test_filter_type_str():
+    expect = ["a", "b", "c"]
+    result = pm.filter_type(["a", [3, "bc"], "b", 2, "c"],
+                            str)
+    assert result == expect
+
+
+def test_filter_type_list():
+    expect = [[1, "a"], ["2", 3]]
+    result = pm.filter_type(["a", [1, "a"], 2, "b", ["2", 3]],
+                            list)
+    assert result == expect
