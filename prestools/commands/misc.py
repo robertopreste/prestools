@@ -20,5 +20,5 @@ def prime_factors(number):
     Calculate the prime factors of a given natural number. Note that 1 is not a
     prime number, so it will not be included.
     """
-    result = pm.prime_factors(number)
+    result = pm.prime_factors(int(number))
     click.echo(result)
