@@ -2,10 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import pytest
-
 from click.testing import CliRunner
-
-from prestools import prestools
 from prestools import cli
 
 
@@ -30,12 +27,12 @@ from prestools import cli
 #     runner = CliRunner()
 #     result = runner.invoke(cli.main)
 #     assert result.exit_code == 0
-#     assert 'prestools.cli.main' in result.output
+#     assert "prestools" in result.output
 #
 #
 # def test_cli_help():
 #     """Test the CLI help."""
 #     runner = CliRunner()
-#     help_result = runner.invoke(cli.main, ['--help'])
-#     assert help_result.exit_code == 0
-#     assert '--help  Show this message and exit.' in help_result.output
+#     result = runner.invoke(cli.main, ['--help'])
+#     assert result.exit_code == 0
+#     assert "--help  Show this message and exit." in result.output

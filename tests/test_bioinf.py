@@ -156,7 +156,8 @@ def test_mutate_sequence_nt_many(sample_nt_sequence):
 
 
 def test_mutate_sequence_aa_many(sample_aa_sequence):
-    result = pb.mutate_sequence(sample_aa_sequence, mutations=10, alphabet="aa")
+    result = pb.mutate_sequence(sample_aa_sequence, mutations=10,
+                                alphabet="aa")
     assert len(result) == len(sample_aa_sequence)
     assert set(result) == set(pb.aa_list)
     assert pb.hamming_distance(sample_aa_sequence, result) == 10
