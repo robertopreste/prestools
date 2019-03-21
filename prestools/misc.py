@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
+import re 
 from collections import Iterable
-from typing import List, Any, Type
+from typing import List, Any, Type, Optional
 
 
 def flatten(iterable: Iterable, drop_null: bool = False) -> list:
@@ -75,3 +76,20 @@ def filter_type(input_list: List[Any], target_type: Type) -> List[Any]:
     :return: List[Any]
     """
     return [el for el in input_list if type(el) == target_type]
+
+
+def wordcount(sentence: str, word: Union[bool, str] = False) -> Union[dict, int]: 
+    """
+    Return the number of occurrences of each word in the given sentence, in 
+    the form of a dictionary; it is also possible to directly return the 
+    number of occurrences of a specific word. 
+    :param str sentence: input sentence to count words from 
+    :param Union[bool, str] word: target word to count occurrences of 
+    :return: Union[dict, int]
+    """
+    words = re.sub(r"\W", " ", sentence).split()
+    wordset = set(words)
+    wordict = {el: words.count(el) for el in wordset}
+    if word: 
+        return wordict.get(word, 0)
+    return wordict

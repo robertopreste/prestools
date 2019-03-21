@@ -23,4 +23,10 @@ History
 
 * Add command line interface commands and related tests for `bioinf` and `misc` modules;
 * Add `filter_type()` function in `prestools.misc` and related tests;
-* Clean code style.
+* Clean code style.  
+
+0.1.4 (WIP)
+=========== 
+
+* Add `wordcount()` function in `prestools.misc`.  
+
