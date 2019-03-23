@@ -149,18 +149,25 @@ def test_wordcount_specific_word():
     assert result == expect
 
 
+def test_wordcount_specific_word_not_present():
+    expect = 0
+    result = pm.wordcount("word test wordcount word",
+                          "prova")
+    assert result == expect
+
+
 def test_wordcount_ignore_case_true():
     expect = {"word": 2, "test": 1, "wordcount": 1}
     result = pm.wordcount("word test wordcount WORD",
                           ignore_case=True)
-    assert result == result
+    assert result == expect
 
 
 def test_wordcount_ignore_case_false():
     expect = {"word": 1, "test": 1, "wordcount": 1, "WORD": 1}
     result = pm.wordcount("word test wordcount WORD",
                           ignore_case=False)
-    assert result == result
+    assert result == expect
 
 
 def test_wordcount_specific_word_ignore_case_true():
