@@ -132,3 +132,48 @@ def test_filter_type_list():
     result = pm.filter_type(["a", [1, "a"], 2, "b", ["2", 3]],
                             list)
     assert result == expect
+
+
+# pm.wordcount
+
+def test_wordcount():
+    expect = {"word": 2, "test": 1, "wordcount": 1}
+    result = pm.wordcount("word test wordcount word")
+    assert result == expect
+
+
+def test_wordcount_specific_word():
+    expect = 2
+    result = pm.wordcount("word test wordcount word",
+                          "word")
+    assert result == expect
+
+
+def test_wordcount_ignore_case_true():
+    expect = {"word": 2, "test": 1, "wordcount": 1}
+    result = pm.wordcount("word test wordcount WORD",
+                          ignore_case=True)
+    assert result == result
+
+
+def test_wordcount_ignore_case_false():
+    expect = {"word": 1, "test": 1, "wordcount": 1, "WORD": 1}
+    result = pm.wordcount("word test wordcount WORD",
+                          ignore_case=False)
+    assert result == result
+
+
+def test_wordcount_specific_word_ignore_case_true():
+    expect = 2
+    result = pm.wordcount("word test wordcount WORD",
+                          "word",
+                          ignore_case=True)
+    assert result == expect
+
+
+def test_wordcount_specific_word_ignore_case_false():
+    expect = 1
+    result = pm.wordcount("word test wordcount WORD",
+                          "word",
+                          ignore_case=False)
+    assert result == expect

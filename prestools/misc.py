@@ -3,7 +3,7 @@
 # Created by Roberto Preste
 import re 
 from collections import Iterable
-from typing import List, Any, Type, Optional
+from typing import List, Any, Type, Union
 
 
 def flatten(iterable: Iterable, drop_null: bool = False) -> list:
@@ -78,15 +78,20 @@ def filter_type(input_list: List[Any], target_type: Type) -> List[Any]:
     return [el for el in input_list if type(el) == target_type]
 
 
-def wordcount(sentence: str, word: Union[bool, str] = False) -> Union[dict, int]: 
+def wordcount(sentence: str,
+              word: Union[bool, str] = False,
+              ignore_case: bool = False) -> Union[dict, int]:
     """
     Return the number of occurrences of each word in the given sentence, in 
     the form of a dictionary; it is also possible to directly return the 
     number of occurrences of a specific word. 
     :param str sentence: input sentence to count words from 
-    :param Union[bool, str] word: target word to count occurrences of 
+    :param Union[bool, str] word: target word to count occurrences of
+    :param bool ignore_case: ignore case in the given sentence (default: False)
     :return: Union[dict, int]
     """
+    if ignore_case:
+        sentence = sentence.casefold()
     words = re.sub(r"\W", " ", sentence).split()
     wordset = set(words)
     wordict = {el: words.count(el) for el in wordset}
