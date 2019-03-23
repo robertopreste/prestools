@@ -22,3 +22,19 @@ def prime_factors(number):
     """
     result = pm.prime_factors(int(number))
     click.echo(result)
+
+
+@misc.command()
+@click.argument("sentence")
+@click.option("--word", "-w", default=False,
+              help="""Target word to count occurrences of""")
+@click.option("--ignore_case", "-i", is_flag=True, default=False,
+              help="""Ignore case in the given sentence (default: False)""")
+def wordcount(sentence, word, ignore_case):
+    """
+    Return the number of occurrences of each word in the given sentence, in
+    the form of a dictionary; it is also possible to directly return the
+    number of occurrences of a specific word.
+    """
+    result = pm.wordcount(sentence, word, ignore_case)
+    click.echo(result)
