@@ -25,8 +25,8 @@ History
 * Add `filter_type()` function in `prestools.misc` and related tests;
 * Clean code style.  
 
-0.1.4 (WIP)
+0.1.4 (2019-03-23)
 =========== 
 
-* Add `wordcount()` function in `prestools.misc`.  
+* Add `wordcount()` function in `prestools.misc` and related tests.
 
