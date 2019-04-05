@@ -26,7 +26,13 @@ History
 * Clean code style.  
 
 0.1.4 (2019-03-23)
-=========== 
+==================
 
 * Add `wordcount()` function in `prestools.misc` and related tests.
+
+0.1.5 (2019-04-05)
+==================
+
+* Add `equal_files()` function in `prestools.misc` and related tests;
+* Update docstrings.
 
