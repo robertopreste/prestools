@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
+import os
 import pytest
 from click.testing import CliRunner
 from prestools import cli
+
+DATADIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
+SAME1 = os.path.join(DATADIR, "same1.txt")
+SAME2 = os.path.join(DATADIR, "same2.txt")
+SAMENOT = os.path.join(DATADIR, "samenot.txt")
+SIZENOT = os.path.join(DATADIR, "sizenot.txt")
 
 
 # prime_factors
@@ -105,3 +112,28 @@ def test_cli_wordcount_specific_word_ignore_case_false():
     assert result.exit_code == 0
     assert result.output.strip() == expect
 
+
+# pm.equal_files
+
+def test_cli_equal_files():
+    runner = CliRunner()
+    expect = "True"
+    result = runner.invoke(cli.main, ["misc", "equal-files", SAME1, SAME2])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect
+
+
+def test_cli_equal_files_false():
+    runner = CliRunner()
+    expect = "False"
+    result = runner.invoke(cli.main, ["misc", "equal-files", SAME1, SAMENOT])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect
+
+
+def test_cli_equal_files_false_size():
+    runner = CliRunner()
+    expect = "False"
+    result = runner.invoke(cli.main, ["misc", "equal-files", SAME1, SAMENOT])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect

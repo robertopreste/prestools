@@ -16,9 +16,10 @@ def misc():
 @misc.command()
 @click.argument("number")
 def prime_factors(number):
-    """
-    Calculate the prime factors of a given natural number. Note that 1 is not a
-    prime number, so it will not be included.
+    """Calculate the prime factors of a NUMBER.
+
+    Calculate the prime factors of a given natural number. Note that 1 is
+    not a prime number, so it will not be included.
     """
     result = pm.prime_factors(int(number))
     click.echo(result)
@@ -31,10 +32,24 @@ def prime_factors(number):
 @click.option("--ignore_case", "-i", is_flag=True, default=False,
               help="""Ignore case in the given sentence (default: False)""")
 def wordcount(sentence, word, ignore_case):
-    """
-    Return the number of occurrences of each word in the given sentence, in
-    the form of a dictionary; it is also possible to directly return the
-    number of occurrences of a specific word.
+    """Count occurrences of words in a SENTENCE.
+
+    Return the number of occurrences of each word in the given sentence,
+    in the form of a dictionary; it is also possible to directly return
+    the number of occurrences of a specific word.
     """
     result = pm.wordcount(sentence, word, ignore_case)
+    click.echo(result)
+
+
+@misc.command()
+@click.argument("file1")
+@click.argument("file2")
+def equal_files(file1, file2):
+    """Check whether FILE1 and FILE2 are identical.
+
+    First check whether the files have the same size, if so read them and
+    check their content for equality.
+    """
+    result = pm.equal_files(file1, file2)
     click.echo(result)

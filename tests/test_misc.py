@@ -1,8 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
+import os
 import pytest
 import prestools.misc as pm
+
+DATADIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
+SAME1 = os.path.join(DATADIR, "same1.txt")
+SAME2 = os.path.join(DATADIR, "same2.txt")
+SAMENOT = os.path.join(DATADIR, "samenot.txt")
+SIZENOT = os.path.join(DATADIR, "sizenot.txt")
 
 
 # pm.flatten()
@@ -183,4 +190,24 @@ def test_wordcount_specific_word_ignore_case_false():
     result = pm.wordcount("word test wordcount WORD",
                           "word",
                           ignore_case=False)
+    assert result == expect
+
+
+# pm.equal_files
+
+def test_equal_files():
+    expect = True
+    result = pm.equal_files(SAME1, SAME2)
+    assert result == expect
+
+
+def test_equal_files_false():
+    expect = False
+    result = pm.equal_files(SAME1, SAMENOT)
+    assert result == expect
+
+
+def test_equal_files_false_size():
+    expect = False
+    result = pm.equal_files(SAME1, SIZENOT)
     assert result == expect
