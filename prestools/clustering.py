@@ -13,12 +13,16 @@ from .classes import HierCluster
 def hierarchical_clustering(df: Union[pd.DataFrame, np.ndarray],
                             method: str = "ward") -> Union[HierCluster,
                                                            None, ValueError]:
-    """
-    Returns clustering created using scipy from a given dataframe of
-    correlations. Uses the HierCluster class available in prestools.classes
-    :param Union[pd.Dataframe, np.ndarray] df: input dataframe of correlations
-    :param str method: method to be used to cluster the data ['ward', 'single',
-    'complete', 'average', 'weighted', 'centroid', 'median'] (default = 'ward')
+    """Hierarchical cluster of a dataframe.
+
+    Return clustering created using scipy from a given dataframe of
+    correlations, using the HierCluster class available in
+    prestools.classes.
+    :param Union[pd.Dataframe, np.ndarray] df: input dataframe of
+    correlations
+    :param str method: method to be used to cluster the data ['ward',
+    'single', 'complete', 'average', 'weighted', 'centroid', 'median']
+    (default = 'ward')
     :return: Union[HierCluster, None, ValueError]
     """
     if method not in ["ward", "single", "complete", "average",
@@ -38,14 +42,17 @@ def find_n_clusters_elbow(df: Union[pd.DataFrame, np.ndarray],
                           plot: bool = False,
                           method: str = "ward") -> Union[int,
                                                          None, ValueError]:
-    """
+    """Find the suggested number of clusters using the elbow method.
+
     Find the suggested number of clusters for the given dataframe of
     correlations, using the elbow method.
-    :param Union[pd.Dataframe, np.ndarray] df: input dataframe of correlations
+    :param Union[pd.Dataframe, np.ndarray] df: input dataframe of
+    correlations
     :param bool plot: plot the resulting elbow plot (default: False)
-    :param str method: method to be used to cluster the data ['ward', 'single',
-    'complete', 'average', 'weighted', 'centroid', 'median'] (default = 'ward')
-    :return:
+    :param str method: method to be used to cluster the data ['ward',
+    'single', 'complete', 'average', 'weighted', 'centroid', 'median']
+    (default = 'ward')
+    :return: Union[int, None, ValueError]
     """
     if method not in ["ward", "single", "complete", "average",
                       "weighted", "centroid", "median"]:

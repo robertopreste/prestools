@@ -19,7 +19,8 @@ def bioinf():
 @click.option("--ignore_case", "-i", is_flag=True, default=False,
               help="""Ignore case when comparing sequences (default: False)""")
 def hamming_distance(seq_1, seq_2, ignore_case):
-    """
+    """Calculate the Hamming distance between SEQ1 and SEQ2.
+
     Calculate the Hamming distance between two sequences.
     """
     result = pb.hamming_distance(seq_1, seq_2, ignore_case=ignore_case)
@@ -32,7 +33,8 @@ def hamming_distance(seq_1, seq_2, ignore_case):
               help="""Type of conversion to perform ('reverse', 'complement', 
               'reverse_complement') (default: 'reverse_complement')""")
 def reverse_complement(sequence, conversion):
-    """
+    """Convert a nucleotide SEQUENCE into its reverse complement.
+
     Convert a nucleotide sequence into its reverse, complement or reverse
     complement.
     """
@@ -43,7 +45,8 @@ def reverse_complement(sequence, conversion):
 @bioinf.command()
 @click.argument("sequence")
 def shuffle_sequence(sequence):
-    """
+    """Shuffle the given SEQUENCE.
+
     Randomly shuffle a sequence, maintaining the same nucleotide composition.
     """
     result = pb.shuffle_sequence(sequence)
@@ -56,7 +59,8 @@ def shuffle_sequence(sequence):
               help="""Character alphabet to use to create the sequence ('nt', 
               'aa') (default: 'nt')""")
 def random_sequence(length, alphabet):
-    """
+    """Create a random sequence of the given LENGTH.
+
     Create a random sequence of the given length using the specified alphabet
     (nucleotides or aminoacids).
     """

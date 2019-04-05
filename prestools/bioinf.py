@@ -35,15 +35,18 @@ complem_dict = {"A": "T", "C": "G", "G": "C", "T": "A", "U": "A", "R": "Y",
 
 def hamming_distance(seq_1: str, seq_2: str,
                      ignore_case: bool = False) -> int:
-    """
+    """Calculate the Hamming distance between two sequences.
+
     Calculate the Hamming distance between two sequences.
     :param str seq_1: first sequence to compare
     :param str seq_2: second sequence to compare
-    :param bool ignore_case: ignore case when comparing sequences (default: False)
+    :param bool ignore_case: ignore case when comparing sequences
+    (default: False)
     :return: int
     """
     if len(seq_1) != len(seq_2):
-        raise ValueError("Cannot calculate Hamming distance of sequences with different lengths.")
+        raise ValueError("Cannot calculate Hamming distance of "
+                         "sequences with different lengths.")
 
     if ignore_case:
         seq_1 = seq_1.casefold()
@@ -53,7 +56,8 @@ def hamming_distance(seq_1: str, seq_2: str,
 
 
 def aa_one_to_three(sequence: str) -> str:
-    """
+    """Convert one-letter aminoacid code to three-letter code.
+
     Convert one-letter aminoacid code to three-letter code.
     :param str sequence: sequence of aminoacids in single-letter code
     :return: str with aminoacid sequence in three-letter code
@@ -62,7 +66,8 @@ def aa_one_to_three(sequence: str) -> str:
 
 
 def aa_three_to_one(sequence: str) -> str:
-    """
+    """Convert three-letter aminoacid code to one-letter code.
+
     Convert three-letter aminoacid code to one-letter code.
     :param str sequence: sequence of aminoacids in three-letter code
     :return: str with aminoacid sequence in one-letter code
@@ -81,7 +86,8 @@ def aa_three_to_one(sequence: str) -> str:
 
 def reverse_complement(sequence: str,
                        conversion: str = "reverse_complement") -> str:
-    """
+    """Convert a nucleotide sequence into its reverse complement.
+
     Convert a nucleotide sequence into its reverse, complement or reverse
     complement.
     :param str sequence: nucleotide sequence to be converted
@@ -101,8 +107,9 @@ def reverse_complement(sequence: str,
 
 
 def shuffle_sequence(sequence: str) -> str:
-    """
-    Randomly shuffle a sequence, maintaining the same nucleotide composition.
+    """Shuffle the given sequence.
+
+    Randomly shuffle a sequence, maintaining the same composition.
     :param str sequence: input sequence to shuffle
     :return: str
     """
@@ -122,7 +129,8 @@ def shuffle_sequence(sequence: str) -> str:
 
 def random_sequence(length: Union[int, str],
                     alphabet: str = "nt") -> str:
-    """
+    """Create a random sequence of the given length.
+
     Create a random sequence of the given length using the specified alphabet
     (nucleotides or aminoacids).
     :param Union[int, str] length: desired length of the random sequence
@@ -146,7 +154,8 @@ def random_sequence(length: Union[int, str],
 def mutate_sequence(sequence: str,
                     mutations: int = 1,
                     alphabet: str = "nt") -> str:
-    """
+    """Mutate a sequence introducing a given number of mutations.
+
     Introduce a specific number of mutations into the given sequence.
     :param str sequence: input sequence to mutate
     :param int mutations: number of mutations to introduce (default: 1)
