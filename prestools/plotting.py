@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
+import os
+import random
+import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.cluster.hierarchy as sch
-from typing import Union
+from typing import Union, Optional
+from string import ascii_letters
 
 
 def plot_heatmap_dendrogram(df: pd.DataFrame, cmap: str = "RdBu_r",
@@ -58,7 +62,7 @@ def plot_dendrogram(df: Union[pd.DataFrame, np.ndarray],
     (default = 'Dendrogram')
     :param Union[bool, str] save: if False, the plot will not be saved,
     just shown; otherwise it is possible to specify the path/filename
-    where the fill will be saved (default = False)
+    where the file will be saved (default = False)
     :param str method: method to be used to cluster the data
     (default = 'ward')
     :return:
@@ -80,3 +84,56 @@ def plot_dendrogram(df: Union[pd.DataFrame, np.ndarray],
     if save:
         plt.savefig(save)
     plt.show()
+
+
+def random_image(save: Optional[str] = None) -> None:
+    """Retrieve a random image from the web.
+
+    Retrieve and save a random image from the web, using the service
+    provided by Picsum. The downloaded image can be opened using
+    IPython.display.Image().
+    :param Optional[str] save: if a path/filename is provided, the image
+    will be saved to the given destination; otherwise, a random name will
+    be created, taking care that no other files with the same name are
+    present
+    :return: None
+    """
+    def random_suffix(length: int = 6) -> str:
+        """Create a random string of the given length.
+
+        Return a random string of the given length which will be used
+        as suffix for the image filename.
+        :param int length: desired length of the random string
+        (default: 6)
+        :return: str
+        """
+        return "".join([random.choice(ascii_letters) for _ in range(length)])
+
+    rnd_art = requests.get("https://picsum.photos/500/500/?random")
+    rnd_name = "random_img_{}.png".format(random_suffix())
+
+    if save:
+        # if given path is a directory
+        if os.path.isdir(save):
+            # if rnd_name already exists, will create a new rnd_name
+            while os.path.isfile(os.path.join(save, rnd_name)):
+                rnd_name = "random_img_{}.png".format(random_suffix())
+            filename = os.path.join(save, rnd_name)
+        elif os.path.isfile(save):  # provided filename already exists
+            raise FileExistsError
+        else:
+            filename = save
+    else:
+        while os.path.isfile(rnd_name):
+            rnd_name = "random_img_{}.png".format(random_suffix())
+        filename = rnd_name
+
+    with open(filename, "wb") as f:
+        f.write(rnd_art.content)
+
+    return
+
+
+
+
+
