@@ -36,3 +36,8 @@ History
 * Add `equal_files()` function in `prestools.misc` and related tests;
 * Update docstrings.
 
+0.1.6 (2019-04-11)
+==================
+
+* Add `random_image()` function and CLI in `prestools.plotting`.
+
