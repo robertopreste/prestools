@@ -41,3 +41,8 @@ History
 
 * Add `random_image()` function and CLI in `prestools.plotting`.
 
+0.1.7 (2019-04-20)
+==================
+
+* Add `benchmark()` function in `prestools.misc` and related tests.
+
