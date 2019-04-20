@@ -2,9 +2,9 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import os
-import re 
-from collections import Iterable
-from typing import List, Any, Type, Union
+import re
+import time
+from typing import List, Any, Type, Union, Callable, Tuple, Iterable
 
 
 def flatten(iterable: Iterable, drop_null: bool = False) -> list:
@@ -123,3 +123,18 @@ def equal_files(file1: str, file2: str) -> bool:
                 return True
     return False
 
+
+def benchmark(function: Callable) -> Tuple[str, float]:
+    """Benchmark a given function.
+
+    Run the given function and return the function name and the amount
+    of time spent in executing it.
+    :param Callable function: function to benchmark (without parentheses)
+    :return: Tuple[str, float]
+    """
+    f_name = function.__name__
+    start = time.time()
+    function()
+    end = time.time()
+    total = end - start
+    return f_name, total

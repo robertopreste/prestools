@@ -211,3 +211,16 @@ def test_equal_files_false_size():
     expect = False
     result = pm.equal_files(SAME1, SIZENOT)
     assert result == expect
+
+
+# pm.benchmark
+
+def test_benchmark():
+    def t_sum():
+        return sum([1, 2, 3])
+
+    result = pm.benchmark(t_sum)
+
+    assert isinstance(result, tuple)
+    assert result[0] == "t_sum"
+    assert isinstance(result[1], float)
