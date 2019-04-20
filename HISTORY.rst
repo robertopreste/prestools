@@ -46,3 +46,8 @@ History
 
 * Add `benchmark()` function in `prestools.misc` and related tests.
 
+0.1.8 (WIP)
+===========
+
+Change `pm.benchmark()` function to a decorator.
+
