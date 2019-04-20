@@ -3,7 +3,6 @@
 # Created by Roberto Preste
 import os
 import re
-import time
 from typing import List, Any, Type, Union, Callable, Tuple, Iterable
 
 
@@ -124,17 +123,31 @@ def equal_files(file1: str, file2: str) -> bool:
     return False
 
 
-def benchmark(function: Callable) -> Tuple[str, float]:
+def benchmark(function: Callable) -> Callable:
     """Benchmark a given function.
 
-    Run the given function and return the function name and the amount
-    of time spent in executing it.
-    :param Callable function: function to benchmark (without parentheses)
-    :return: Tuple[str, float]
+    Decorator to run the given function and return the function name and
+    the amount of time spent in executing it.
+    :param Callable function: function to benchmark
+    :return: Callable
     """
-    f_name = function.__name__
-    start = time.time()
-    function()
-    end = time.time()
-    total = end - start
-    return f_name, total
+    import time
+
+    def wrapper(*args, **kwargs) -> Tuple[str, float, Any]:
+        """Return time spent to call a function.
+
+        Benchmark the input function and return function name time needed
+        to call it and values returned by the function.
+        :param args: positional arguments for the input function
+        :param kwargs: keywork arguments for the input function
+        :return: Tuple[str, float, Any]
+        """
+        f_name = function.__name__
+        start = time.time()
+        f_val = function(*args, **kwargs)
+        end = time.time()
+        f_time = end - start
+
+        return f_name, f_time, f_val
+
+    return wrapper
