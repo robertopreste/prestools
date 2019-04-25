@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import random
-from typing import Union
+from typing import Union, Dict
 
 nt_list = ["A", "C", "G", "T"]
 
@@ -38,10 +38,14 @@ def hamming_distance(seq_1: str, seq_2: str,
     """Calculate the Hamming distance between two sequences.
 
     Calculate the Hamming distance between two sequences.
+
     :param str seq_1: first sequence to compare
+
     :param str seq_2: second sequence to compare
+
     :param bool ignore_case: ignore case when comparing sequences
-    (default: False)
+        (default: False)
+
     :return: int
     """
     if len(seq_1) != len(seq_2):
@@ -59,7 +63,9 @@ def aa_one_to_three(sequence: str) -> str:
     """Convert one-letter aminoacid code to three-letter code.
 
     Convert one-letter aminoacid code to three-letter code.
+
     :param str sequence: sequence of aminoacids in single-letter code
+
     :return: str with aminoacid sequence in three-letter code
     """
     return "".join([aa_dict[aa.upper()][0] for aa in sequence])
@@ -69,7 +75,9 @@ def aa_three_to_one(sequence: str) -> str:
     """Convert three-letter aminoacid code to one-letter code.
 
     Convert three-letter aminoacid code to one-letter code.
+
     :param str sequence: sequence of aminoacids in three-letter code
+
     :return: str with aminoacid sequence in one-letter code
     """
     # TODO: this is very ugly, will have to refactor it
@@ -90,9 +98,12 @@ def reverse_complement(sequence: str,
 
     Convert a nucleotide sequence into its reverse, complement or reverse
     complement.
+
     :param str sequence: nucleotide sequence to be converted
+
     :param str conversion: type of conversion to perform ('reverse',
-    'complement', 'reverse_complement') (default: 'reverse_complement')
+        'complement', 'reverse_complement') (default: 'reverse_complement')
+
     :return: str
     """
     if conversion not in ["reverse", "complement", "reverse_complement"]:
@@ -110,7 +121,9 @@ def shuffle_sequence(sequence: str) -> str:
     """Shuffle the given sequence.
 
     Randomly shuffle a sequence, maintaining the same composition.
+
     :param str sequence: input sequence to shuffle
+
     :return: str
     """
     tmp_seq: str = ""
@@ -133,9 +146,12 @@ def random_sequence(length: Union[int, str],
 
     Create a random sequence of the given length using the specified alphabet
     (nucleotides or aminoacids).
+
     :param Union[int, str] length: desired length of the random sequence
+
     :param str alphabet: character alphabet to use to create the sequence
-    ('nt', 'aa') (default: 'nt')
+        ('nt', 'aa') (default: 'nt')
+
     :return: str
     """
     if alphabet not in ["nt", "aa"]:
@@ -157,10 +173,14 @@ def mutate_sequence(sequence: str,
     """Mutate a sequence introducing a given number of mutations.
 
     Introduce a specific number of mutations into the given sequence.
+
     :param str sequence: input sequence to mutate
+
     :param int mutations: number of mutations to introduce (default: 1)
+
     :param str alphabet: character alphabet to use to introduce mutations
-    ('nt', 'aa') (default: 'nt')
+        ('nt', 'aa') (default: 'nt')
+
     :return: str
     """
     if alphabet not in ["nt", "aa"]:
@@ -179,3 +199,53 @@ def mutate_sequence(sequence: str,
         sequence = sequence[0: rand_num] + mut_char + sequence[rand_num + 1:]
 
     return sequence
+
+
+def nt_frequency(sequence: str) -> Dict[str, float]:
+    """Calculate nucleotide frequencies.
+
+    Return a dictionary with nucleotide frequencies from the given
+    sequence.
+
+    :param str sequence: input nucleotide sequence
+
+    :return: Dict[str,float]
+    """
+    sequence = sequence.upper()
+    length = len(sequence)
+
+    return {nt: (sequence.count(nt))/length for nt in nt_list}
+
+
+def p_distance(seq_1: str, seq_2: str) -> float:
+    """Calculate the pairwise distance between two sequences.
+
+    Return the uncorrected distance between seq_1 and seq_2.
+
+    :param str seq_1: first sequence to compare
+
+    :param str seq_2: second sequence to compare
+
+    :return: float
+    """
+    return hamming_distance(seq_1, seq_2, ignore_case=True) / len(seq_1)
+
+
+def jukes_cantor_distance(seq_1: str, seq_2: str) -> float:
+    """Calculate the Jukes-Cantor distance between two sequences.
+
+    :param str seq_1: first sequence to compare
+
+    :param str seq_2: second sequence to compare
+
+    :return: float
+    """
+    from math import log
+    b = 0.75
+    h = p_distance(seq_1, seq_2)
+    try:
+        d = -b * log(1 - h/b)
+    except ValueError:
+        raise ValueError("Cannot calculate log of a negative number.")
+
+    return d
