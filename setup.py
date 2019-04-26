@@ -10,7 +10,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = ["Click>=6.0", "scipy==1.2.1", "pandas==0.24.1",
-                "matplotlib==3.0.3"]
+                "matplotlib==3.0.3", "seaborn==0.9.0"]
 
 setup_requirements = ['pytest-runner', ]
 

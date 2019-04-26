@@ -4,7 +4,7 @@
 import pytest
 from click.testing import CliRunner
 from prestools import cli
-from prestools.bioinf import nt_list, aa_list
+from prestools.bioinf import _NT_LIST, _AA_LIST
 
 
 # hamming-distance
@@ -157,7 +157,7 @@ def test_cli_random_sequence_nt():
                                       "200"])
     assert result.exit_code == 0
     assert len(result.output.strip()) == expect
-    assert set(result.output.strip()) == set(nt_list)
+    assert set(result.output.strip()) == set(_NT_LIST)
 
 
 def test_cli_random_sequence_aa_long():
@@ -167,7 +167,7 @@ def test_cli_random_sequence_aa_long():
                                       "200", "--alphabet", "aa"])
     assert result.exit_code == 0
     assert len(result.output.strip()) == expect
-    assert set(result.output.strip()) == set(aa_list)
+    assert set(result.output.strip()) == set(_AA_LIST)
 
 
 def test_cli_random_sequence_aa_short():
@@ -177,7 +177,7 @@ def test_cli_random_sequence_aa_short():
                                       "200", "-a", "aa"])
     assert result.exit_code == 0
     assert len(result.output.strip()) == expect
-    assert set(result.output.strip()) == set(aa_list)
+    assert set(result.output.strip()) == set(_AA_LIST)
 
 
 def test_cli_random_sequence_error():
