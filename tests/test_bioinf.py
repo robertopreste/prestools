@@ -98,17 +98,17 @@ def test_reverse_complement_error():
 # pb.shuffle_sequence()
 
 def test_shuffle_sequence_nt(sample_nt_sequence):
-    expect = {nt: sample_nt_sequence.count(nt) for nt in pb.nt_list}
+    expect = {nt: sample_nt_sequence.count(nt) for nt in pb._NT_LIST}
     res = pb.shuffle_sequence(sample_nt_sequence)
-    result = {nt: res.count(nt) for nt in pb.nt_list}
+    result = {nt: res.count(nt) for nt in pb._NT_LIST}
     assert len(res) == len(sample_nt_sequence)
     assert result == expect
 
 
 def test_shuffle_sequence_aa(sample_aa_sequence):
-    expect = {aa: sample_aa_sequence.count(aa) for aa in pb.aa_list}
+    expect = {aa: sample_aa_sequence.count(aa) for aa in pb._AA_LIST}
     res = pb.shuffle_sequence(sample_aa_sequence)
-    result = {aa: res.count(aa) for aa in pb.aa_list}
+    result = {aa: res.count(aa) for aa in pb._AA_LIST}
     assert len(res) == len(sample_aa_sequence)
     assert result == expect
 
@@ -118,13 +118,13 @@ def test_shuffle_sequence_aa(sample_aa_sequence):
 def test_random_sequence_nt():
     result = pb.random_sequence(200, alphabet="nt")
     assert len(result) == 200
-    assert set(result) == set(pb.nt_list)
+    assert set(result) == set(pb._NT_LIST)
 
 
 def test_random_sequence_aa():
     result = pb.random_sequence(200, alphabet="aa")
     assert len(result) == 200
-    assert set(result) == set(pb.aa_list)
+    assert set(result) == set(pb._AA_LIST)
 
 
 def test_random_sequence_error():
@@ -137,21 +137,21 @@ def test_random_sequence_error():
 def test_mutate_sequence_nt_one(sample_nt_sequence):
     result = pb.mutate_sequence(sample_nt_sequence)
     assert len(result) == len(sample_nt_sequence)
-    assert set(result) == set(pb.nt_list)
+    assert set(result) == set(pb._NT_LIST)
     assert pb.hamming_distance(sample_nt_sequence, result) == 1
 
 
 def test_mutate_sequence_aa_one(sample_aa_sequence):
     result = pb.mutate_sequence(sample_aa_sequence, alphabet="aa")
     assert len(result) == len(sample_aa_sequence)
-    assert set(result) == set(pb.aa_list)
+    assert set(result) == set(pb._AA_LIST)
     assert pb.hamming_distance(sample_aa_sequence, result) == 1
 
 
 def test_mutate_sequence_nt_many(sample_nt_sequence):
     result = pb.mutate_sequence(sample_nt_sequence, mutations=10)
     assert len(result) == len(sample_nt_sequence)
-    assert set(result) == set(pb.nt_list)
+    assert set(result) == set(pb._NT_LIST)
     assert pb.hamming_distance(sample_nt_sequence, result) == 10
 
 
@@ -159,7 +159,7 @@ def test_mutate_sequence_aa_many(sample_aa_sequence):
     result = pb.mutate_sequence(sample_aa_sequence, mutations=10,
                                 alphabet="aa")
     assert len(result) == len(sample_aa_sequence)
-    assert set(result) == set(pb.aa_list)
+    assert set(result) == set(pb._AA_LIST)
     assert pb.hamming_distance(sample_aa_sequence, result) == 10
 
 

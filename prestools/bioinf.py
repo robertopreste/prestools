@@ -4,37 +4,37 @@
 import random
 from typing import Union, Dict
 
-nt_list = ["A", "C", "G", "T"]
+_NT_LIST = ["A", "C", "G", "T"]
 
-aa_list = ["A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P",
-           "Q", "R", "S", "T", "V", "W", "Y"]
+_AA_LIST = ["A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P",
+            "Q", "R", "S", "T", "V", "W", "Y"]
 
 _TRANSITIONS = ["AG", "GA", "CT", "TC"]
 
 _TRANSVERSIONS = ["AC", "CA", "AT", "TA", "GC", "CG", "GT", "TG"]
 
 
-nt_dict = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine",
-           "U": "Uracil", "R": "A/G", "Y": "C/T", "S": "G/C", "W": "A/T",
-           "K": "G/T", "M": "A/C", "B": "C/G/T", "D": "A/G/T", "H": "A/C/T",
-           "V": "A/C/G", "N": "A/C/G/T", "./-": "gap"}
+_NT_DICT = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine",
+            "U": "Uracil", "R": "A/G", "Y": "C/T", "S": "G/C", "W": "A/T",
+            "K": "G/T", "M": "A/C", "B": "C/G/T", "D": "A/G/T", "H": "A/C/T",
+            "V": "A/C/G", "N": "A/C/G/T", "./-": "gap"}
 
-aa_dict = {"A": ("Ala", "Alanine"), "B": ("Asx", "Aspartic Acid/Asparagine"),
-           "C": ("Cys", "Cysteine"), "D": ("Asp", "Aspartic Acid"),
-           "E": ("Glu", "Glutamic Acid"), "F": ("Phe", "Phenylalanine"),
-           "G": ("Gly", "Glycine"), "H": ("His", "Histidine"),
-           "I": ("Ile", "Isoleucine"), "K": ("Lys", "Lysine"),
-           "L": ("Leu", "Leucine"), "M": ("Met", "Methionine"),
-           "N": ("Asn", "Asparagine"), "P": ("Pro", "Proline"),
-           "Q": ("Gln", "Glutamine"), "R": ("Arg", "Arginine"),
-           "S": ("Ser", "Serine"), "T": ("Thr", "Threonine"),
-           "V": ("Val", "Valine"), "W": ("Trp", "Tryptophan"),
-           "X": ("Xaa", "Any"), "Y": ("Tyr", "Tyrosine"),
-           "Z": ("Glx", "Glutamine/Glutamic Acid"), "*": ("***", "Stop")}
+_AA_DICT = {"A": ("Ala", "Alanine"), "B": ("Asx", "Aspartic Acid/Asparagine"),
+            "C": ("Cys", "Cysteine"), "D": ("Asp", "Aspartic Acid"),
+            "E": ("Glu", "Glutamic Acid"), "F": ("Phe", "Phenylalanine"),
+            "G": ("Gly", "Glycine"), "H": ("His", "Histidine"),
+            "I": ("Ile", "Isoleucine"), "K": ("Lys", "Lysine"),
+            "L": ("Leu", "Leucine"), "M": ("Met", "Methionine"),
+            "N": ("Asn", "Asparagine"), "P": ("Pro", "Proline"),
+            "Q": ("Gln", "Glutamine"), "R": ("Arg", "Arginine"),
+            "S": ("Ser", "Serine"), "T": ("Thr", "Threonine"),
+            "V": ("Val", "Valine"), "W": ("Trp", "Tryptophan"),
+            "X": ("Xaa", "Any"), "Y": ("Tyr", "Tyrosine"),
+            "Z": ("Glx", "Glutamine/Glutamic Acid"), "*": ("***", "Stop")}
 
-complem_dict = {"A": "T", "C": "G", "G": "C", "T": "A", "U": "A", "R": "Y",
-                "Y": "R", "S": "W", "W": "S", "K": "M", "M": "K", "B": "A",
-                "D": "C", "H": "G", "V": "T"}
+_COMPLEM_DICT = {"A": "T", "C": "G", "G": "C", "T": "A", "U": "A", "R": "Y",
+                 "Y": "R", "S": "W", "W": "S", "K": "M", "M": "K", "B": "A",
+                 "D": "C", "H": "G", "V": "T"}
 
 
 def hamming_distance(seq_1: str, seq_2: str,
@@ -74,7 +74,7 @@ def aa_one_to_three(sequence: str) -> str:
 
     :return: str with aminoacid sequence in three-letter code
     """
-    return "".join([aa_dict[aa.upper()][0] for aa in sequence])
+    return "".join([_AA_DICT[aa.upper()][0] for aa in sequence])
 
 
 def aa_three_to_one(sequence: str) -> str:
@@ -91,8 +91,8 @@ def aa_three_to_one(sequence: str) -> str:
 
     for n in range(0, len(sequence), 3):
         aa = sequence[n: n + 3].capitalize()
-        for cod in aa_dict:
-            if aa_dict[cod][0] == aa:
+        for cod in _AA_DICT:
+            if _AA_DICT[cod][0] == aa:
                 new_seq += cod
                 break
     return new_seq
@@ -118,9 +118,9 @@ def reverse_complement(sequence: str,
     if conversion == "reverse":
         return sequence[::-1]
     elif conversion == "complement":
-        return "".join([complem_dict[nt.upper()] for nt in sequence])
+        return "".join([_COMPLEM_DICT[nt.upper()] for nt in sequence])
 
-    return "".join([complem_dict[nt.upper()] for nt in sequence])[::-1]
+    return "".join([_COMPLEM_DICT[nt.upper()] for nt in sequence])[::-1]
 
 
 def shuffle_sequence(sequence: str) -> str:
@@ -164,7 +164,7 @@ def random_sequence(length: Union[int, str],
         raise ValueError("Invalid alphabet option.")
 
     sequence = ""
-    elems = nt_list if alphabet == "nt" else aa_list
+    elems = _NT_LIST if alphabet == "nt" else _AA_LIST
 
     for i in range(int(length)):
         temp_char = random.choice(elems)
@@ -192,7 +192,7 @@ def mutate_sequence(sequence: str,
     if alphabet not in ["nt", "aa"]:
         raise ValueError("Invalid alphabet option.")
 
-    elems = nt_list if alphabet == "nt" else aa_list
+    elems = _NT_LIST if alphabet == "nt" else _AA_LIST
 
     for n in range(mutations):
         max_num = len(sequence)
@@ -220,7 +220,8 @@ def nt_frequency(sequence: str) -> Dict[str, float]:
     sequence = sequence.upper()
     length = len(sequence)
 
-    return {nt: (sequence.count(nt))/length for nt in nt_list}
+    return {nt: sequence.count(nt)/length
+            for nt in _NT_LIST}
 
 
 def p_distance(seq_1: str, seq_2: str) -> float:
@@ -279,23 +280,17 @@ def tajima_nei_distance(seq_1: str, seq_2: str) -> float:
     """
     from math import log
     from itertools import combinations
-    from collections import defaultdict
 
     G = nt_frequency(seq_1 + seq_2)
     p = p_distance(seq_1, seq_2)
     h = 0.0
-    pairs = []
-    pair_freqs = defaultdict(int)
-    for el in combinations(nt_list, 2):
-        pair_freqs[el] = 0
+    pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
+    nt_pairs = combinations(_NT_LIST, 2)
+    length = len(pairs)
 
-    for pair in zip(seq_1, seq_2):
-        if "-" not in pair:
-            pairs.append(pair)
-
-    for el in pair_freqs:
+    for el in nt_pairs:
         paircount = pairs.count(el) + pairs.count(el[::-1])
-        x_ij_sq = (paircount / len(pairs)) ** 2
+        x_ij_sq = (paircount / length) ** 2
         gi_gj = G[el[0]] * G[el[1]]
         h += 0.5 * x_ij_sq / gi_gj
 
@@ -324,13 +319,10 @@ def kimura_distance(seq_1: str, seq_2: str) -> float:
     """
     from math import log, sqrt
 
-    pairs = []
+    pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
     ts = 0
     tv = 0
-
-    for pair in zip(seq_1, seq_2):
-        if "-" not in pair:
-            pairs.append(pair)
+    length = len(pairs)
 
     for pair in pairs:
         if pair[0] + pair[1] in _TRANSITIONS:
@@ -338,8 +330,8 @@ def kimura_distance(seq_1: str, seq_2: str) -> float:
         elif pair[0] + pair[1] in _TRANSVERSIONS:
             tv += 1
 
-    p = ts / len(pairs)
-    q = tv / len(pairs)
+    p = ts / length
+    q = tv / length
 
     try:
         d = -0.5 * log((1 - 2 * p - q) * sqrt(1 - 2 * q))
@@ -368,13 +360,10 @@ def tamura_distance(seq_1: str, seq_2: str) -> float:
     """
     from math import log
 
-    pairs = []
+    pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
     ts = 0
     tv = 0
-
-    for pair in zip(seq_1, seq_2):
-        if "-" not in pair:
-            pairs.append(pair)
+    length = len(pairs)
 
     for pair in pairs:
         if pair[0] + pair[1] in _TRANSITIONS:
@@ -382,12 +371,12 @@ def tamura_distance(seq_1: str, seq_2: str) -> float:
         elif pair[0] + pair[1] in _TRANSVERSIONS:
             tv += 1
 
-    p = ts / len(pairs)
-    q = tv / len(pairs)
-    freqs1 = nt_frequency(seq_1)
-    freqs2 = nt_frequency(seq_2)
-    gc1 = freqs1["C"] + freqs1["G"]
-    gc2 = freqs2["C"] + freqs2["G"]
+    p = ts / length
+    q = tv / length
+    fr1 = nt_frequency(seq_1)
+    fr2 = nt_frequency(seq_2)
+    gc1 = fr1["C"] + fr1["G"]
+    gc2 = fr2["C"] + fr2["G"]
     c = gc1 + gc2 - 2 * gc1 * gc2
 
     try:
