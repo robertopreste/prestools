@@ -15,39 +15,41 @@ History
 0.1.2 (2019-03-15)
 ==================
 
-* Add `hamming_distance()` and `mutate_sequence()` functions in `prestools.bioinf` and related tests;
+* Add ``hamming_distance()`` and ``mutate_sequence()`` functions in ``prestools.bioinf`` and related tests;
 * Clean code style.
 
 0.1.3 (2019-03-19)
 ==================
 
-* Add command line interface commands and related tests for `bioinf` and `misc` modules;
-* Add `filter_type()` function in `prestools.misc` and related tests;
+* Add command line interface commands and related tests for ``bioinf`` and ``misc`` modules;
+* Add ``filter_type()`` function in ``prestools.misc`` and related tests;
 * Clean code style.  
 
 0.1.4 (2019-03-23)
 ==================
 
-* Add `wordcount()` function in `prestools.misc` and related tests.
+* Add ``wordcount()`` function in ``prestools.misc`` and related tests.
 
 0.1.5 (2019-04-05)
 ==================
 
-* Add `equal_files()` function in `prestools.misc` and related tests;
+* Add ``equal_files()`` function in ``prestools.misc`` and related tests;
 * Update docstrings.
 
 0.1.6 (2019-04-11)
 ==================
 
-* Add `random_image()` function and CLI in `prestools.plotting`.
+* Add ``random_image()`` function and CLI in ``prestools.plotting``.
 
 0.1.7 (2019-04-20)
 ==================
 
-* Add `benchmark()` function in `prestools.misc` and related tests.
+* Add ``benchmark()`` function in ``prestools.misc`` and related tests.
 
-0.1.8 (WIP)
+0.1.8 (2019-04-26)
 ===========
 
-Change `pm.benchmark()` function to a decorator.
+* Change ``pm.benchmark()`` function to a decorator;
+* Add several distance calculation functions to ``prestools.bioinf`` and related tests;
+* Reformat code in ``prestools.bioinf``.
 
