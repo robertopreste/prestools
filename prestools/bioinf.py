@@ -9,6 +9,10 @@ nt_list = ["A", "C", "G", "T"]
 aa_list = ["A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P",
            "Q", "R", "S", "T", "V", "W", "Y"]
 
+_TRANSITIONS = ["AG", "GA", "CT", "TC"]
+
+_TRANSVERSIONS = ["AC", "CA", "AT", "TA", "GC", "CG", "GT", "TG"]
+
 
 nt_dict = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine",
            "U": "Uracil", "R": "A/G", "Y": "C/T", "S": "G/C", "W": "A/T",
@@ -56,7 +60,9 @@ def hamming_distance(seq_1: str, seq_2: str,
         seq_1 = seq_1.casefold()
         seq_2 = seq_2.casefold()
 
-    return sum([1 for i in range(len(seq_1)) if seq_1[i] != seq_2[i]])
+    return sum([1 for i in range(len(seq_1))
+                if seq_1[i] != seq_2[i]
+                and seq_1[i] != "-" and seq_2[i] != "-"])
 
 
 def aa_one_to_three(sequence: str) -> str:
@@ -234,6 +240,9 @@ def p_distance(seq_1: str, seq_2: str) -> float:
 def jukes_cantor_distance(seq_1: str, seq_2: str) -> float:
     """Calculate the Jukes-Cantor distance between two sequences.
 
+    Return the Jukes-Cantor distance between seq_1 and seq_2, calculated
+    as distance = -b log(1 - p/b) where b = 3/4 and p = p_distance.
+
     :param str seq_1: first sequence to compare
 
     :param str seq_2: second sequence to compare
@@ -242,9 +251,147 @@ def jukes_cantor_distance(seq_1: str, seq_2: str) -> float:
     """
     from math import log
     b = 0.75
-    h = p_distance(seq_1, seq_2)
+    p = p_distance(seq_1, seq_2)
     try:
-        d = -b * log(1 - h/b)
+        d = -b * log(1 - p/b)
+    except ValueError:
+        raise ValueError("Cannot calculate log of a negative number.")
+
+    return d
+
+
+def tajima_nei_distance(seq_1: str, seq_2: str) -> float:
+    """Calculate the Tajima-Nei distance between two sequences.
+
+    Return the Tajima-Nei distance between seq_1 and seq_2, calculated
+    as distance = -b log(1 - p / b) where
+    b = 0.5 * [1 - Sum i from A to T(Gi^2+p^2/h)]
+    h = Sum i from A to G(Sum j from C to T (Xij^2/2*Gi*Gj))
+    p = p-distance
+    Xij = frequency of pair (i,j) in seq1 and seq2, with gaps removed
+    Gi = frequency of base i over seq1 and seq2
+
+    :param str seq_1: first sequence to compare
+
+    :param str seq_2: second sequence to compare
+
+    :return: float
+    """
+    from math import log
+    from itertools import combinations
+    from collections import defaultdict
+
+    G = nt_frequency(seq_1 + seq_2)
+    p = p_distance(seq_1, seq_2)
+    h = 0.0
+    pairs = []
+    pair_freqs = defaultdict(int)
+    for el in combinations(nt_list, 2):
+        pair_freqs[el] = 0
+
+    for pair in zip(seq_1, seq_2):
+        if "-" not in pair:
+            pairs.append(pair)
+
+    for el in pair_freqs:
+        paircount = pairs.count(el) + pairs.count(el[::-1])
+        x_ij_sq = (paircount / len(pairs)) ** 2
+        gi_gj = G[el[0]] * G[el[1]]
+        h += 0.5 * x_ij_sq / gi_gj
+
+    b = 0.5 * (1 - sum([G[nt] ** 2 for nt in G]) + p ** 2 / h)
+
+    try:
+        d = -b * log(1 - p/b)
+    except ValueError:
+        raise ValueError("Cannot calculate log of a negative number.")
+
+    return d
+
+
+def kimura_distance(seq_1: str, seq_2: str) -> float:
+    """Calculate the Kimura 2-Parameter distance between two sequences.
+
+    Return the Kimura 2-Parameter distance between seq_1 and seq_2,
+    calculated as distance = -0.5 log((1 - 2p -q) * sqrt( 1 - 2q )) where
+    p = transition frequency and q = transversion frequency.
+
+    :param str seq_1: first sequence to compare
+
+    :param str seq_2: second sequence to compare
+
+    :return: float
+    """
+    from math import log, sqrt
+
+    pairs = []
+    ts = 0
+    tv = 0
+
+    for pair in zip(seq_1, seq_2):
+        if "-" not in pair:
+            pairs.append(pair)
+
+    for pair in pairs:
+        if pair[0] + pair[1] in _TRANSITIONS:
+            ts += 1
+        elif pair[0] + pair[1] in _TRANSVERSIONS:
+            tv += 1
+
+    p = ts / len(pairs)
+    q = tv / len(pairs)
+
+    try:
+        d = -0.5 * log((1 - 2 * p - q) * sqrt(1 - 2 * q))
+    except ValueError:
+        raise ValueError("Cannot calculate log of a negative number.")
+
+    return d
+
+
+def tamura_distance(seq_1: str, seq_2: str) -> float:
+    """Calculate the Tamura distance between two sequences.
+
+    Return the Tamura distance between seq_1 and seq_2, calculated as
+    distance = -C log(1 - P/C - Q) - 0.5(1 - C)log(1 - 2Q) where
+    P = transition frequency
+    Q = transversion frequency
+    C = GC1 + GC2 - 2 * GC1 * GC2
+    GC1 = GC-content of sequence 1
+    GC2 = GC-coontent of sequence 2
+
+    :param str seq_1: first sequence to compare
+
+    :param str seq_2: second sequence to compare
+
+    :return: float
+    """
+    from math import log
+
+    pairs = []
+    ts = 0
+    tv = 0
+
+    for pair in zip(seq_1, seq_2):
+        if "-" not in pair:
+            pairs.append(pair)
+
+    for pair in pairs:
+        if pair[0] + pair[1] in _TRANSITIONS:
+            ts += 1
+        elif pair[0] + pair[1] in _TRANSVERSIONS:
+            tv += 1
+
+    p = ts / len(pairs)
+    q = tv / len(pairs)
+    freqs1 = nt_frequency(seq_1)
+    freqs2 = nt_frequency(seq_2)
+    gc1 = freqs1["C"] + freqs1["G"]
+    gc2 = freqs2["C"] + freqs2["G"]
+    c = gc1 + gc2 - 2 * gc1 * gc2
+
+    try:
+        d = -c * log(1 - p/c - q) - 0.5 * (1 - c) * log(1 - 2*q)
     except ValueError:
         raise ValueError("Cannot calculate log of a negative number.")
 

@@ -166,3 +166,35 @@ def test_mutate_sequence_aa_many(sample_aa_sequence):
 def test_mutate_sequence_error():
     with pytest.raises(ValueError):
         pb.mutate_sequence("CAGATA", alphabet="invalid")
+
+
+# pb.p_distance
+
+def test_p_distance(sample_nt_long_1, sample_nt_long_2):
+    expect = 0.7266
+    result = pb.p_distance(sample_nt_long_1, sample_nt_long_2)
+    assert result == expect
+
+
+def test_jukes_cantor_distance(sample_nt_long_1, sample_nt_long_2):
+    expect = 2.600502888125025
+    result = pb.jukes_cantor_distance(sample_nt_long_1, sample_nt_long_2)
+    assert result == expect
+
+
+def test_tajima_nei_distance(sample_nt_long_1, sample_nt_long_2):
+    expect = 2.612489480361321
+    result = pb.tajima_nei_distance(sample_nt_long_1, sample_nt_long_2)
+    assert result == expect
+
+
+def test_kimura_distance(sample_nt_long_1, sample_nt_long_2):
+    expect = 2.6031087353225875
+    result = pb.kimura_distance(sample_nt_long_1, sample_nt_long_2)
+    assert result == expect
+
+
+def test_tamura_distance(sample_nt_long_1, sample_nt_long_2):
+    expect = 2.603755899559136
+    result = pb.tamura_distance(sample_nt_long_1, sample_nt_long_2)
+    assert result == expect
