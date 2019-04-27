@@ -47,10 +47,13 @@ History
 * Add ``benchmark()`` function in ``prestools.misc`` and related tests.
 
 0.1.8 (2019-04-26)
-===========
+==================
 
 * Change ``pm.benchmark()`` function to a decorator;
-* Add several distance calculation functions to ``prestools.bioinf`` and CLI;
-* Update tests;
+* Add several distance calculation functions to ``prestools.bioinf`` and related tests;
 * Reformat code in ``prestools.bioinf``.
 
+0.1.9 (2019-04-27)
+==================
+
+* Add distance functions to ``bioinf`` CLI command and related tests.
