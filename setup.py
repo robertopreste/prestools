@@ -29,7 +29,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Miscellaneous functions and utilities for Python programming. ",
+    description="Miscellaneous functions and utilities for Python programming.",
     entry_points={
         'console_scripts': [
             'prestools=prestools.cli:main',

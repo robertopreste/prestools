@@ -187,3 +187,58 @@ def test_cli_random_sequence_error():
                                       "200", "-a", "invalid"])
     assert result.exit_code == 1
     assert result.exception.args[0] == expect
+
+
+# p-distance
+
+def test_cli_p_distance(sample_nt_long_1, sample_nt_long_2):
+    runner = CliRunner()
+    expect = "0.7266"
+    result = runner.invoke(cli.main, ["bioinf", "p-distance",
+                                      sample_nt_long_1, sample_nt_long_2])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect
+
+
+# jukes-cantor-distance
+
+def test_cli_jukes_cantor_distance(sample_nt_long_1, sample_nt_long_2):
+    runner = CliRunner()
+    expect = "2.600502888125025"
+    result = runner.invoke(cli.main, ["bioinf", "jukes-cantor-distance",
+                                      sample_nt_long_1, sample_nt_long_2])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect
+
+
+# tajima-nei-distance
+
+def test_cli_tajima_nei_distance(sample_nt_long_1, sample_nt_long_2):
+    runner = CliRunner()
+    expect = "2.612489480361321"
+    result = runner.invoke(cli.main, ["bioinf", "tajima-nei-distance",
+                                      sample_nt_long_1, sample_nt_long_2])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect
+
+
+# kimura-distance
+
+def test_cli_kimura_distance(sample_nt_long_1, sample_nt_long_2):
+    runner = CliRunner()
+    expect = "2.6031087353225875"
+    result = runner.invoke(cli.main, ["bioinf", "kimura-distance",
+                                      sample_nt_long_1, sample_nt_long_2])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect
+
+
+# tamura-distance
+
+def test_cli_tamura_distance(sample_nt_long_1, sample_nt_long_2):
+    runner = CliRunner()
+    expect = "2.603755899559136"
+    result = runner.invoke(cli.main, ["bioinf", "tamura-distance",
+                                      sample_nt_long_1, sample_nt_long_2])
+    assert result.exit_code == 0
+    assert result.output.strip() == expect

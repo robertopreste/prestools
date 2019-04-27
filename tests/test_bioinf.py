@@ -176,11 +176,15 @@ def test_p_distance(sample_nt_long_1, sample_nt_long_2):
     assert result == expect
 
 
+# pb.jukes_cantor_distance
+
 def test_jukes_cantor_distance(sample_nt_long_1, sample_nt_long_2):
     expect = 2.600502888125025
     result = pb.jukes_cantor_distance(sample_nt_long_1, sample_nt_long_2)
     assert result == expect
 
+
+# pb.tajima_nei_distance
 
 def test_tajima_nei_distance(sample_nt_long_1, sample_nt_long_2):
     expect = 2.612489480361321
@@ -188,11 +192,15 @@ def test_tajima_nei_distance(sample_nt_long_1, sample_nt_long_2):
     assert result == expect
 
 
+# pb.kimura_distance
+
 def test_kimura_distance(sample_nt_long_1, sample_nt_long_2):
     expect = 2.6031087353225875
     result = pb.kimura_distance(sample_nt_long_1, sample_nt_long_2)
     assert result == expect
 
+
+# pb.tamura_distance
 
 def test_tamura_distance(sample_nt_long_1, sample_nt_long_2):
     expect = 2.603755899559136

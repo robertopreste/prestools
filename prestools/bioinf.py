@@ -349,8 +349,8 @@ def tamura_distance(seq_1: str, seq_2: str) -> float:
     P = transition frequency
     Q = transversion frequency
     C = GC1 + GC2 - 2 * GC1 * GC2
-    GC1 = GC-content of sequence 1
-    GC2 = GC-coontent of sequence 2
+    GC1 = GC-content of seq_1
+    GC2 = GC-content of seq_2
 
     :param str seq_1: first sequence to compare
 
