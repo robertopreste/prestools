@@ -18,6 +18,8 @@ prestools
      :target: https://pyup.io/repos/github/robertopreste/prestools/
      :alt: Updates
 
+.. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
+   :target: https://saythanks.io/to/robertopreste
 
 
 Miscellaneous functions and utilities for Python programming. 
