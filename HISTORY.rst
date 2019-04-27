@@ -50,6 +50,7 @@ History
 ===========
 
 * Change ``pm.benchmark()`` function to a decorator;
-* Add several distance calculation functions to ``prestools.bioinf`` and related tests;
+* Add several distance calculation functions to ``prestools.bioinf`` and CLI;
+* Update tests;
 * Reformat code in ``prestools.bioinf``.
 
