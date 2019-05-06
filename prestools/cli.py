@@ -5,7 +5,7 @@ import sys
 import click
 from .commands.bioinf import bioinf
 from .commands.clustering import clustering
-from .commands.plotting import plotting
+from .commands.graph import graph
 from .commands.misc import misc
 
 
@@ -29,7 +29,7 @@ def main():
 
 main.add_command(bioinf)
 main.add_command(clustering)
-main.add_command(plotting)
+main.add_command(graph)
 main.add_command(misc)
 
 

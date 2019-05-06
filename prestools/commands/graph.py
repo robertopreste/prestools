@@ -2,18 +2,18 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import click
-import prestools.plotting as pp
+import prestools.graph as pg
 
 
 @click.group()
-def plotting():
+def graph():
     """
     Plotting utilities.
     """
     pass
 
 
-@plotting.command()
+@graph.command()
 @click.option("--save", "-s", default=False,
               help="""If a path/filename is provided, the image
     will be saved to the given destination; otherwise, a random name will
@@ -26,5 +26,5 @@ def random_image(save):
     provided by Picsum. The downloaded image can be opened using
     IPython.display.Image().
     """
-    pp.random_image(save)
+    pg.random_image(save)
     click.echo("Done.")
