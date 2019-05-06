@@ -57,3 +57,8 @@ History
 ==================
 
 * Add distance functions to ``bioinf`` CLI command and related tests.
+
+0.1.10 (2019-05-06)
+===================
+
+* Change `plotting` library name to `graph` (to avoid alias conflict with pandas_profiling).

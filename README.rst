@@ -36,7 +36,7 @@ Several ready-to-use functions for different tasks:
 
 * bioinformatics (`prestools.bioinf`)
 * clustering (`prestools.clustering`)
-* plotting (`prestools.plotting`)
+* plotting (`prestools.graph`)
 * miscellaneous (`prestools.misc`)
 
 Credits
