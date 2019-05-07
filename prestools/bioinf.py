@@ -153,7 +153,7 @@ def random_sequence(length: Union[int, str],
     Create a random sequence of the given length using the specified alphabet
     (nucleotides or aminoacids).
 
-    :param Union[int, str] length: desired length of the random sequence
+    :param Union[int,str] length: desired length of the random sequence
 
     :param str alphabet: character alphabet to use to create the sequence
         ('nt', 'aa') (default: 'nt')

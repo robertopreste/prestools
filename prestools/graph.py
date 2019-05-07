@@ -13,28 +13,35 @@ from typing import Union, Optional
 from string import ascii_letters
 
 
-def plot_heatmap_dendrogram(df: pd.DataFrame, cmap: str = "RdBu_r",
+def plot_heatmap_dendrogram(df: pd.DataFrame,
+                            cmap: str = "RdBu_r",
                             title: str = "Cluster Heatmap",
                             save: Union[bool, str] = False,
-                            method: str = "ward"):
+                            method: str = "ward") -> bool:
     """Plot a heatmap with hierarchical clustering of a dataframe.
 
     Create (and optionally save) a heatmap with hierarchical clustering
     created using Seaborn, starting from a given dataframe of
     correlations.
+
     :param pd.Dataframe df: input dataframe of correlations
+
     :param str cmap: colormap to be used (default = 'RdBu_r')
+
     :param str title: title for the resulting plot (default = 'Cluster
-    Heatmap')
-    :param Union[bool, str] save: if False, the plot will not be saved,
-    just shown; otherwise it is possible to specify the path/filename
-    where the file will be saved (default = False)
+        Heatmap')
+
+    :param Union[bool,str] save: if False, the plot will not be saved,
+        just shown; otherwise it is possible to specify the path/filename
+        where the file will be saved (default = False)
+
     :param str method: method to be used to cluster the data
-    (default = 'ward')
-    :return:
+        (default = 'ward')
+
+    :return: bool
     """
     if df.shape == (0, 0) or df.shape == (1, 1):
-        return
+        return False
     cm = sns.clustermap(df, method=method, figsize=(20, 16), vmin=-1, vmax=1,
                         annot=True, cmap=cmap)
     plt.suptitle(title, fontsize=22)
@@ -42,33 +49,41 @@ def plot_heatmap_dendrogram(df: pd.DataFrame, cmap: str = "RdBu_r",
         cm.savefig(save)
     plt.show()
 
+    return True
+
 
 def plot_dendrogram(df: Union[pd.DataFrame, np.ndarray],
                     cut_off: Union[bool, float] = False,
                     title: str = "Dendrogram",
                     save: Union[bool, str] = False,
-                    method: str = "ward"):
+                    method: str = "ward") -> bool:
     """Plot a dendrogram plot from a dataframe.
 
     Create (and optionally save) a dendrogram plot starting from a given
     dataframe of correlations. It is also possible to add a cut-off line
     given a distance to use for separating clusters.
-    :param Union[pd.Dataframe, np.ndarray] df: input dataframe of
-    correlations
-    :param Union[bool, float] cut_off: if not False, a vertical line will
-    be added that can be used to better identify clusters
-    (default = False)
+
+    :param Union[pd.Dataframe,np.ndarray] df: input dataframe of
+        correlations
+
+    :param Union[bool,float] cut_off: if not False, a vertical line will
+        be added that can be used to better identify clusters
+        (default = False)
+
     :param str title: title for the resulting plot
-    (default = 'Dendrogram')
-    :param Union[bool, str] save: if False, the plot will not be saved,
-    just shown; otherwise it is possible to specify the path/filename
-    where the file will be saved (default = False)
+        (default = 'Dendrogram')
+
+    :param Union[bool,str] save: if False, the plot will not be saved,
+        just shown; otherwise it is possible to specify the path/filename
+        where the file will be saved (default = False)
+
     :param str method: method to be used to cluster the data
-    (default = 'ward')
-    :return:
+        (default = 'ward')
+
+    :return: bool
     """
     if df.shape == (0, 0) or df.shape == (1, 1):
-        return
+        return False
     Z = sch.linkage(df, method=method)
     # dists = ssd.pdist(df)
     # c, coph_dists = sch.cophenet(Z, dists)
@@ -85,26 +100,32 @@ def plot_dendrogram(df: Union[pd.DataFrame, np.ndarray],
         plt.savefig(save)
     plt.show()
 
+    return True
 
-def random_image(save: Optional[str] = None) -> None:
+
+def random_image(save: Optional[str] = None) -> bool:
     """Retrieve a random image from the web.
 
     Retrieve and save a random image from the web, using the service
     provided by Picsum. The downloaded image can be opened using
     IPython.display.Image().
+
     :param Optional[str] save: if a path/filename is provided, the image
-    will be saved to the given destination; otherwise, a random name will
-    be created, taking care that no other files with the same name are
-    present
-    :return: None
+        will be saved to the given destination; otherwise, a random name will
+        be created, taking care that no other files with the same name are
+        present
+
+    :return: bool
     """
     def random_suffix(length: int = 6) -> str:
         """Create a random string of the given length.
 
         Return a random string of the given length which will be used
         as suffix for the image filename.
+
         :param int length: desired length of the random string
-        (default: 6)
+            (default: 6)
+
         :return: str
         """
         return "".join([random.choice(ascii_letters) for _ in range(length)])
@@ -131,7 +152,7 @@ def random_image(save: Optional[str] = None) -> None:
     with open(filename, "wb") as f:
         f.write(rnd_art.content)
 
-    return
+    return True
 
 
 

@@ -8,7 +8,7 @@ import prestools.graph as pg
 @click.group()
 def graph():
     """
-    Plotting utilities.
+    Plotting utilities
     """
     pass
 

@@ -4,6 +4,11 @@
 
 
 class HierCluster:
+    """
+    Class used to return results of hierarchical clustering used in
+    prestools.clustering.
+    """
+
     def __init__(self):
         self._linkage = None
         self._pair_dist = None
