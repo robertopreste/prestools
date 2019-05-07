@@ -62,3 +62,9 @@ History
 ===================
 
 * Change `plotting` library name to `graph` (to avoid alias conflict with pandas_profiling).
+
+0.1.11 (2019-05-07)
+===================
+
+* Fix docstrings and type hints;
+* Update documentation.
