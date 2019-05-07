@@ -8,6 +8,7 @@ Welcome to prestools's documentation!
    readme
    installation
    usage
+   api
    modules
    contributing
    authors

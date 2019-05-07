@@ -26,7 +26,8 @@ Miscellaneous functions and utilities for Python programming.
 
 
 * Free software: MIT license
-* Documentation: https://prestools.readthedocs.io.
+* Documentation: https://prestools.readthedocs.io
+* GitHub repo: https://github.com/robertopreste/prestools
 
 
 Features
@@ -35,14 +36,27 @@ Features
 Several ready-to-use functions for different tasks:
 
 * bioinformatics (`prestools.bioinf`)
-* clustering (`prestools.clustering`)
+* data clustering (`prestools.clustering`)
 * plotting (`prestools.graph`)
 * miscellaneous (`prestools.misc`)
+
+Please refer to the Usage_ section of the documentation for further details.
+
+Installation
+------------
+
+Install prestools using pip (Python 3 only)::
+
+    pip install prestools
+
+Please refer to the Installation_ section of the documentation for further details.
 
 Credits
 -------
 
 This package was created with Cookiecutter_ and the `cc-pypackage`_ project template.
 
+.. _Usage: https://prestools.readthedocs.io/en/latest/usage.html
+.. _Installation: https://prestools.readthedocs.io/en/latest/installation.html
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`cc-pypackage`: https://github.com/robertopreste/cc-pypackage
