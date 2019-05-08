@@ -61,10 +61,15 @@ History
 0.1.10 (2019-05-06)
 ===================
 
-* Change `plotting` library name to `graph` (to avoid alias conflict with pandas_profiling).
+* Change ``plotting`` library name to ``graph`` (to avoid alias conflict with pandas_profiling).
 
 0.1.11 (2019-05-07)
 ===================
 
 * Fix docstrings and type hints;
 * Update documentation.
+
+0.1.12 (2019-05-08)
+===================
+
+* Add ``apply_parallel`` function to ``prestools.misc``.
