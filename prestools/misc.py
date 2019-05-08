@@ -3,6 +3,9 @@
 # Created by Roberto Preste
 import os
 import re
+import numpy as np
+import pandas as pd
+from multiprocessing import Pool
 from typing import List, Any, Type, Union, Callable, Tuple, Iterable
 
 
@@ -174,3 +177,30 @@ def benchmark(function: Callable) -> Callable:
         return f_name, f_time, f_val
 
     return wrapper
+
+
+def apply_parallel(df: pd.DataFrame,
+                   function: Callable,
+                   cores: int = 4) -> pd.DataFrame:
+    """Apply a function to a dataframe in parallel.
+
+    Apply the given function to the dataframe, using the given number of
+    cores for computation. The dataframe will be split in `cores` part,
+    and the function will be applied to each separately; finally, the
+    dataframe is reconstructed and returned.
+
+    :param pd.DataFrame df: input dataframe
+
+    :param Callable function: function to apply
+
+    :param int cores: number of cores to use (default: 4)
+
+    :return: pd.DataFrame
+    """
+    df_split = np.array_split(df, cores)
+    pool = Pool(cores)
+    df = pd.concat(pool.map(function, df_split))
+    pool.close()
+    pool.join()
+
+    return df
