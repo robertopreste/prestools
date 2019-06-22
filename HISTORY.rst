@@ -73,3 +73,8 @@ History
 ===================
 
 * Add ``apply_parallel`` function to ``prestools.misc``.
+
+0.1.13 (2019-06-22)
+===================
+
+* Add short version arguments to `reverse_complement` bioinf function.
