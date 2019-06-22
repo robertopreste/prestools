@@ -78,15 +78,33 @@ def test_reverse_complement():
     assert result == expect
 
 
+def test_reverse_complement_short():
+    expect = "CAGATA"
+    result = pb.reverse_complement("TATCTG", conversion="rc")
+    assert result == expect
+
+
 def test_reverse_complement_reverse():
     expect = "CAGATA"
     result = pb.reverse_complement("ATAGAC", conversion="reverse")
     assert result == expect
 
 
+def test_reverse_complement_reverse_short():
+    expect = "CAGATA"
+    result = pb.reverse_complement("ATAGAC", conversion="r")
+    assert result == expect
+
+
 def test_reverse_complement_complement():
     expect = "CAGATA"
     result = pb.reverse_complement("GTCTAT", conversion="complement")
+    assert result == expect
+
+
+def test_reverse_complement_complement_short():
+    expect = "CAGATA"
+    result = pb.reverse_complement("GTCTAT", conversion="c")
     assert result == expect
 
 

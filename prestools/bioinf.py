@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import random
+from math import log, sqrt
+from itertools import combinations
 from typing import Union, Dict
 
 _NT_LIST = ["A", "C", "G", "T"]
@@ -107,17 +109,19 @@ def reverse_complement(sequence: str,
 
     :param str sequence: nucleotide sequence to be converted
 
-    :param str conversion: type of conversion to perform ('reverse',
-        'complement', 'reverse_complement') (default: 'reverse_complement')
+    :param str conversion: type of conversion to perform ('r'|'reverse',
+        'c'|'complement', 'rc'|'reverse_complement')
+        (default: 'rc'|'reverse_complement')
 
     :return: str
     """
-    if conversion not in ["reverse", "complement", "reverse_complement"]:
+    if conversion not in ["r", "c", "rc",
+                          "reverse", "complement", "reverse_complement"]:
         raise ValueError("Invalid conversion option.")
 
-    if conversion == "reverse":
+    if conversion in ["r", "reverse"]:
         return sequence[::-1]
-    elif conversion == "complement":
+    elif conversion in ["c", "complement"]:
         return "".join([_COMPLEM_DICT[nt.upper()] for nt in sequence])
 
     return "".join([_COMPLEM_DICT[nt.upper()] for nt in sequence])[::-1]
@@ -278,9 +282,6 @@ def tajima_nei_distance(seq_1: str, seq_2: str) -> float:
 
     :return: float
     """
-    from math import log
-    from itertools import combinations
-
     G = nt_frequency(seq_1 + seq_2)
     p = p_distance(seq_1, seq_2)
     h = 0.0
@@ -317,8 +318,6 @@ def kimura_distance(seq_1: str, seq_2: str) -> float:
 
     :return: float
     """
-    from math import log, sqrt
-
     pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
     ts = 0
     tv = 0
@@ -358,8 +357,6 @@ def tamura_distance(seq_1: str, seq_2: str) -> float:
 
     :return: float
     """
-    from math import log
-
     pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
     ts = 0
     tv = 0

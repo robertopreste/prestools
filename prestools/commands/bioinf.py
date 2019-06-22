@@ -105,9 +105,11 @@ def tamura_distance(seq_1, seq_2):
 @bioinf.command()
 @click.argument("sequence")
 @click.option("--conversion", "-c", default="reverse_complement",
-              type=click.Choice(["reverse", "complement", "reverse_complement"]),
-              help="""Type of conversion to perform ('reverse', 'complement', 
-              'reverse_complement') (default: 'reverse_complement')""")
+              type=click.Choice(["reverse", "complement", "reverse_complement",
+                                 "r", "c", "rc"]),
+              help="""Type of conversion to perform ('r'|'reverse', 
+              'c'|'complement', 'rc'|'reverse_complement') 
+              (default: 'rc'|'reverse_complement')""")
 def reverse_complement(sequence, conversion):
     """Convert a nucleotide sequence into its reverse complement.
 
