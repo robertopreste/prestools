@@ -3,10 +3,11 @@
 # Created by Roberto Preste
 import sys
 import click
-from .commands.bioinf import bioinf
-from .commands.clustering import clustering
-from .commands.graph import graph
-from .commands.misc import misc
+from prestools.commands.bioinf import bioinf
+from prestools.commands.clustering import clustering
+from prestools.commands.graph import graph
+from prestools.commands.misc import misc
+from prestools.commands.learn import learn
 
 
 # Custom group class to better handle all the exceptions raised
@@ -31,6 +32,7 @@ main.add_command(bioinf)
 main.add_command(clustering)
 main.add_command(graph)
 main.add_command(misc)
+main.add_command(learn)
 
 
 if __name__ == "__main__":
