@@ -83,4 +83,5 @@ History
 ===================
 
 * Add ``learn`` module and related tests;
+* Remove ``random_image`` from ``graph`` module;
 * Clean code.
