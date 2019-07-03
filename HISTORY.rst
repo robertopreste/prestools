@@ -78,3 +78,9 @@ History
 ===================
 
 * Add short version arguments to `reverse_complement` bioinf function.
+
+0.1.14 (2019-07-03)
+===================
+
+* Add ``learn`` module and related tests;
+* Clean code.

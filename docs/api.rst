@@ -25,6 +25,12 @@ prestools.graph
 .. automodule:: prestools.graph
     :members:
 
+prestools.learn
+===============
+
+.. automodule:: prestools.learn
+    :members:
+
 prestools.misc
 ==============
 

@@ -38,10 +38,11 @@ Features
 
 Several ready-to-use functions for different tasks:
 
-* bioinformatics (`prestools.bioinf`)
-* data clustering (`prestools.clustering`)
-* plotting (`prestools.graph`)
-* miscellaneous (`prestools.misc`)
+* bioinformatics (``prestools.bioinf``)
+* data clustering (``prestools.clustering``)
+* machine learning (``prestools.learn``)
+* plotting (``prestools.graph``)
+* miscellaneous (``prestools.misc``)
 
 Please refer to the Usage_ section of the documentation for further details.
 

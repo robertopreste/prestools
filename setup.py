@@ -9,8 +9,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ["Click>=6.0", "scipy==1.2.1", "pandas==0.24.1",
-                "matplotlib==3.0.3", "seaborn==0.9.0"]
+requirements = ["Click>=7.0", "requests>=2.21.0", "scipy>=1.2.1",
+                "pandas>=0.24.1", "numpy>=1.16.2", "matplotlib>=3.0.3",
+                "seaborn>=0.9.0"]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -42,7 +43,7 @@ setup(
     include_package_data=True,
     keywords='prestools',
     name='prestools',
-    packages=find_packages(include=['prestools']),
+    packages=find_packages(),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
