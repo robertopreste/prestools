@@ -13,10 +13,13 @@ prestools
         :target: https://prestools.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-
 .. image:: https://pyup.io/repos/github/robertopreste/prestools/shield.svg
      :target: https://pyup.io/repos/github/robertopreste/prestools/
      :alt: Updates
+
+.. image:: https://pyup.io/repos/github/robertopreste/prestools/python-3-shield.svg
+     :target: https://pyup.io/repos/github/robertopreste/prestools/
+     :alt: Python 3
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
    :target: https://saythanks.io/to/robertopreste
@@ -45,7 +48,7 @@ Please refer to the Usage_ section of the documentation for further details.
 Installation
 ------------
 
-Install prestools using pip (Python 3 only)::
+Install prestools using pip **(Python 3 only)**::
 
     pip install prestools
 

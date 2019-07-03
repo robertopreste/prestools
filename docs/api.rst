@@ -2,7 +2,7 @@
 API
 ===
 
-All functionalities of prestools can be accessed either after having imported the desired module into Python, as `import prestools.bioinf as pb` and similars. In addition, some functions are also available as Command-Line Interface commands.
+All functionalities of prestools can be accessed after having imported the desired module into Python, as in ``import prestools.bioinf as pb`` and similars. In addition, some functions are also available as Command-Line Interface commands, but this should not be relied on.
 
 Python module functions
 -----------------------
@@ -37,23 +37,27 @@ Command Line Interface
 prestools bioinf
 ================
 
-.. automodule:: prestools.commands.bioinf
-    :members:
+.. click:: prestools.commands.bioinf:bioinf
+    :prog: bioinf
+    :show-nested:
 
 prestools clustering
 ====================
 
-.. automodule:: prestools.commands.clustering
-    :members:
+.. click:: prestools.commands.clustering:clustering
+    :prog: clustering
+    :show-nested:
 
 prestools graph
 ===============
 
-.. automodule:: prestools.commands.graph
-    :members:
+.. click:: prestools.commands.graph:graph
+    :prog: graph
+    :show-nested:
 
 prestools misc
 ==============
 
-.. automodule:: prestools.commands.misc
-    :members:
+.. click:: prestools.commands.misc:misc
+    :prog: misc
+    :show-nested:

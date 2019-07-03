@@ -21,4 +21,6 @@ Some functions are also available as CLI commands, and can be used as follows::
     prestools graph [command] [options]
     prestools misc [command] [options]
 
-Please refer to the API_ page for
+Please refer to the API_ page for more information.
+
+.. _API: https://prestools.readthedocs.io/en/latest/api.html

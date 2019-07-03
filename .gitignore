@@ -231,3 +231,6 @@ pyvenv.cfg
 .venv
 pip-selfcheck.json
 
+.idea/other.xml
+.idea/prestools.iml
+rtdocs/
