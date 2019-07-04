@@ -44,6 +44,12 @@ def test_softmax():
     assert_array_almost_equal(result, expect)
 
 
+def test_softmax_ndim_1():
+    expect = np.array([0.0320586, 0.08714432, 0.23688282, 0.64391426])
+    result = pl.softmax(np.array([1, 2, 3, 4]))
+    assert_array_almost_equal(result, expect)
+
+
 # pl.loss_L1()
 
 def test_loss_L1():

@@ -39,7 +39,10 @@ def softmax(x: np.ndarray) -> np.ndarray:
     :return: np.ndarray
     """
     x_exp = np.exp(x)
-    s = x_exp / np.sum(x_exp, axis=1, keepdims=True)
+    try:
+        s = x_exp / np.sum(x_exp, axis=1, keepdims=True)
+    except np.AxisError:  # x.ndim == 1
+        s = x_exp / np.sum(x_exp, keepdims=True)
 
     return s
 
