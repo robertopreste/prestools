@@ -5,30 +5,46 @@ import numpy as np
 from typing import Union
 
 
-def sigmoid(x: Union[int, np.ndarray]) -> Union[int, np.ndarray]:
-    """Calculate the sigmoid of x.
+def sigmoid(z: Union[int, np.ndarray]) -> Union[int, np.ndarray]:
+    """Calculate the sigmoid function of z.
 
-    :param Union[int,np.ndarray] x: input scalar or numpy array
-
-    :return: Union[int,np.ndarray]
-    """
-    s = 1 / (1 + np.exp(-x))
-
-    return s
-
-
-def sigmoid_gradient(x: Union[int, np.ndarray]) -> Union[int, np.ndarray]:
-    """Calculate the gradient (aka slope or derivative) of the sigmoid
-    function of x.
-
-    :param Union[int,np.ndarray] x: input scalar or numpy array
+    :param Union[int,np.ndarray] z: input scalar or numpy array
 
     :return: Union[int,np.ndarray]
     """
-    s = sigmoid(x)
-    ds = s * (1 - s)
+    a = 1 / (1 + np.exp(-z))
 
-    return ds
+    return a
+
+
+def sigmoid_gradient(z: Union[int, np.ndarray]) -> Union[int, np.ndarray]:
+    """Calculate the gradient of the sigmoid function of z.
+
+    :param Union[int,np.ndarray] z: input scalar or numpy array
+
+    :return: Union[int,np.ndarray]
+    """
+    a = sigmoid(z)
+    da = a * (1 - a)
+
+    return da
+
+
+def flatten_image(img: np.ndarray, scale: bool = False) -> np.ndarray:
+    """Convert an image array to a single-dimension vector.
+
+    :param np.ndarray img: input image array of shape (l, h, d = 3)
+
+    :param bool scale: scale resulting vector dividing its values by 255
+        (default: False)
+
+    :return: np.ndarray of shape (l * h * d, 1)
+    """
+    v = img.reshape(img.shape[0] * img.shape[1] * img.shape[2], 1)
+    if scale:
+        return v / 255
+
+    return v
 
 
 def softmax(x: np.ndarray) -> np.ndarray:
@@ -75,3 +91,31 @@ def loss_L2(yhat: np.ndarray, y: np.ndarray) -> np.float64:
     loss = np.sum(np.dot((y - yhat), (y - yhat)))
 
     return loss
+
+
+def relu(z):
+    """Calculate the ReLU activation function of z.
+
+    :param z: input numpy array
+
+    :return:
+    """
+    a = np.maximum(0, z)
+
+    return a
+
+
+def relu_gradient(z: Union[int, np.ndarray]) -> Union[int, np.ndarray]:
+    """Calculate the gradient of the ReLU function of z.
+
+    :param Union[int,np.ndarray] z: input scalar or numpy array
+
+    :return: Union[int,np.ndarray]
+    """
+    a = relu(z)
+    da = np.zeros_like(a)
+    da[z > 0] = 1.0
+    # TODO: or also
+    # da = np.heaviside(z, 0)
+
+    return da
