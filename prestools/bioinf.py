@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import random
+import numpy as np
+from scipy import stats
 from math import log, sqrt
 from itertools import combinations
 from typing import Union, Dict
@@ -43,16 +45,13 @@ def hamming_distance(seq_1: str, seq_2: str,
                      ignore_case: bool = False) -> int:
     """Calculate the Hamming distance between two sequences.
 
-    Calculate the Hamming distance between two sequences.
+    Args:
+        seq_1: first sequence to compare
+        seq_2: second sequence to compare
+        ignore_case: ignore case when comparing sequences (default: False)
 
-    :param str seq_1: first sequence to compare
-
-    :param str seq_2: second sequence to compare
-
-    :param bool ignore_case: ignore case when comparing sequences
-        (default: False)
-
-    :return: int
+    Returns:
+        distance: Hamming distance
     """
     if len(seq_1) != len(seq_2):
         raise ValueError("Cannot calculate Hamming distance of "
@@ -62,31 +61,35 @@ def hamming_distance(seq_1: str, seq_2: str,
         seq_1 = seq_1.casefold()
         seq_2 = seq_2.casefold()
 
-    return sum([1 for i in range(len(seq_1))
-                if seq_1[i] != seq_2[i]
-                and seq_1[i] != "-" and seq_2[i] != "-"])
+    distance = sum([1 for i in range(len(seq_1))
+                    if seq_1[i] != seq_2[i]
+                    and seq_1[i] != "-" and seq_2[i] != "-"])
+
+    return distance
 
 
 def aa_one_to_three(sequence: str) -> str:
-    """Convert one-letter aminoacid code to three-letter code.
+    """Convert one-letter amino acid code to three-letter code.
 
-    Convert one-letter aminoacid code to three-letter code.
+    Args:
+        sequence: sequence of amino acids in one-letter code
 
-    :param str sequence: sequence of aminoacids in single-letter code
-
-    :return: str with aminoacid sequence in three-letter code
+    Returns:
+        new_seq: sequence converted to three-letter code
     """
-    return "".join([_AA_DICT[aa.upper()][0] for aa in sequence])
+    new_seq = "".join([_AA_DICT[aa.upper()][0] for aa in sequence])
+
+    return new_seq
 
 
 def aa_three_to_one(sequence: str) -> str:
-    """Convert three-letter aminoacid code to one-letter code.
+    """Convert three-letter amino acid code to one-letter code.
 
-    Convert three-letter aminoacid code to one-letter code.
+    Args:
+        sequence: sequence of amino acids in three-letter code
 
-    :param str sequence: sequence of aminoacids in three-letter code
-
-    :return: str with aminoacid sequence in one-letter code
+    Returns:
+        new_seq: sequence converted to one-letter code
     """
     # TODO: this is very ugly, will have to refactor it
     new_seq = ""
@@ -97,6 +100,7 @@ def aa_three_to_one(sequence: str) -> str:
             if _AA_DICT[cod][0] == aa:
                 new_seq += cod
                 break
+
     return new_seq
 
 
@@ -107,13 +111,14 @@ def reverse_complement(sequence: str,
     Convert a nucleotide sequence into its reverse, complement or reverse
     complement.
 
-    :param str sequence: nucleotide sequence to be converted
+    Args:
+        sequence: nucleotide sequence to be converted
+        conversion: type of conversion to perform ('r'|'reverse',
+            'c'|'complement', 'rc'|'reverse_complement')
+            (default: 'rc'|'reverse_complement')
 
-    :param str conversion: type of conversion to perform ('r'|'reverse',
-        'c'|'complement', 'rc'|'reverse_complement')
-        (default: 'rc'|'reverse_complement')
-
-    :return: str
+    Returns:
+        converted sequence
     """
     if conversion not in ["r", "c", "rc",
                           "reverse", "complement", "reverse_complement"]:
@@ -132,9 +137,11 @@ def shuffle_sequence(sequence: str) -> str:
 
     Randomly shuffle a sequence, maintaining the same composition.
 
-    :param str sequence: input sequence to shuffle
+    Args:
+        sequence: input sequence to shuffle
 
-    :return: str
+    Returns:
+        tmp_seq: shuffled sequence
     """
     tmp_seq: str = ""
 
@@ -155,14 +162,14 @@ def random_sequence(length: Union[int, str],
     """Create a random sequence of the given length.
 
     Create a random sequence of the given length using the specified alphabet
-    (nucleotides or aminoacids).
+    (nucleotides or amino acids).
 
-    :param Union[int,str] length: desired length of the random sequence
+    Args:
+        length: desired length of the random sequence
+        alphabet: character alphabet to use ('nt', 'aa') (default: 'nt')
 
-    :param str alphabet: character alphabet to use to create the sequence
-        ('nt', 'aa') (default: 'nt')
-
-    :return: str
+    Returns:
+        sequence: new random sequence
     """
     if alphabet not in ["nt", "aa"]:
         raise ValueError("Invalid alphabet option.")
@@ -184,14 +191,13 @@ def mutate_sequence(sequence: str,
 
     Introduce a specific number of mutations into the given sequence.
 
-    :param str sequence: input sequence to mutate
+    Args:
+        sequence: input sequence to mutate
+        mutations: number of mutations to introduce (default: 1)
+        alphabet: character alphabet to use ('nt', 'aa') (default: 'nt')
 
-    :param int mutations: number of mutations to introduce (default: 1)
-
-    :param str alphabet: character alphabet to use to introduce mutations
-        ('nt', 'aa') (default: 'nt')
-
-    :return: str
+    Returns:
+        sequence: mutated sequence
     """
     if alphabet not in ["nt", "aa"]:
         raise ValueError("Invalid alphabet option.")
@@ -217,15 +223,18 @@ def nt_frequency(sequence: str) -> Dict[str, float]:
     Return a dictionary with nucleotide frequencies from the given
     sequence.
 
-    :param str sequence: input nucleotide sequence
+    Args:
+        sequence: input nucleotide sequence
 
-    :return: Dict[str,float]
+    Returns:
+        freqs: dictionary of nucleotide frequencies
     """
     sequence = sequence.upper()
     length = len(sequence)
 
-    return {nt: sequence.count(nt)/length
-            for nt in _NT_LIST}
+    freqs = {nt: sequence.count(nt)/length for nt in _NT_LIST}
+
+    return freqs
 
 
 def p_distance(seq_1: str, seq_2: str) -> float:
@@ -233,13 +242,16 @@ def p_distance(seq_1: str, seq_2: str) -> float:
 
     Return the uncorrected distance between seq_1 and seq_2.
 
-    :param str seq_1: first sequence to compare
+    Args:
+        seq_1: first sequence to compare
+        seq_2: second sequence to compare
 
-    :param str seq_2: second sequence to compare
-
-    :return: float
+    Returns:
+        distance: pairwise distance
     """
-    return hamming_distance(seq_1, seq_2, ignore_case=True) / len(seq_1)
+    distance = hamming_distance(seq_1, seq_2, ignore_case=True) / len(seq_1)
+
+    return distance
 
 
 def jukes_cantor_distance(seq_1: str, seq_2: str) -> float:
@@ -248,21 +260,21 @@ def jukes_cantor_distance(seq_1: str, seq_2: str) -> float:
     Return the Jukes-Cantor distance between seq_1 and seq_2, calculated
     as distance = -b log(1 - p/b) where b = 3/4 and p = p_distance.
 
-    :param str seq_1: first sequence to compare
+    Args:
+        seq_1: first sequence to compare
+        seq_2: second sequence to compare
 
-    :param str seq_2: second sequence to compare
-
-    :return: float
+    Returns:
+        distance: Jukes-Cantor distance
     """
-    from math import log
     b = 0.75
     p = p_distance(seq_1, seq_2)
     try:
-        d = -b * log(1 - p/b)
+        distance = -b * log(1 - p/b)
     except ValueError:
         raise ValueError("Cannot calculate log of a negative number.")
 
-    return d
+    return distance
 
 
 def tajima_nei_distance(seq_1: str, seq_2: str) -> float:
@@ -276,11 +288,12 @@ def tajima_nei_distance(seq_1: str, seq_2: str) -> float:
     Xij = frequency of pair (i,j) in seq1 and seq2, with gaps removed
     Gi = frequency of base i over seq1 and seq2
 
-    :param str seq_1: first sequence to compare
+    Args:
+        seq_1: first sequence to compare
+        seq_2: second sequence to compare
 
-    :param str seq_2: second sequence to compare
-
-    :return: float
+    Returns:
+        distance: Tajima-Nei distance
     """
     G = nt_frequency(seq_1 + seq_2)
     p = p_distance(seq_1, seq_2)
@@ -298,11 +311,11 @@ def tajima_nei_distance(seq_1: str, seq_2: str) -> float:
     b = 0.5 * (1 - sum([G[nt] ** 2 for nt in G]) + p ** 2 / h)
 
     try:
-        d = -b * log(1 - p/b)
+        distance = -b * log(1 - p/b)
     except ValueError:
         raise ValueError("Cannot calculate log of a negative number.")
 
-    return d
+    return distance
 
 
 def kimura_distance(seq_1: str, seq_2: str) -> float:
@@ -312,11 +325,12 @@ def kimura_distance(seq_1: str, seq_2: str) -> float:
     calculated as distance = -0.5 log((1 - 2p -q) * sqrt( 1 - 2q )) where
     p = transition frequency and q = transversion frequency.
 
-    :param str seq_1: first sequence to compare
+    Args:
+        seq_1: first sequence to compare
+        seq_2: second sequence to compare
 
-    :param str seq_2: second sequence to compare
-
-    :return: float
+    Returns:
+        distance: Kimura distance
     """
     pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
     ts = 0
@@ -333,11 +347,11 @@ def kimura_distance(seq_1: str, seq_2: str) -> float:
     q = tv / length
 
     try:
-        d = -0.5 * log((1 - 2 * p - q) * sqrt(1 - 2 * q))
+        distance = -0.5 * log((1 - 2 * p - q) * sqrt(1 - 2 * q))
     except ValueError:
         raise ValueError("Cannot calculate log of a negative number.")
 
-    return d
+    return distance
 
 
 def tamura_distance(seq_1: str, seq_2: str) -> float:
@@ -351,11 +365,12 @@ def tamura_distance(seq_1: str, seq_2: str) -> float:
     GC1 = GC-content of seq_1
     GC2 = GC-content of seq_2
 
-    :param str seq_1: first sequence to compare
+    Args:
+        seq_1: first sequence to compare
+        seq_2: second sequence to compare
 
-    :param str seq_2: second sequence to compare
-
-    :return: float
+    Returns:
+        distance: Tamura distance
     """
     pairs = [el for el in zip(seq_1, seq_2) if "-" not in el]
     ts = 0
@@ -377,8 +392,67 @@ def tamura_distance(seq_1: str, seq_2: str) -> float:
     c = gc1 + gc2 - 2 * gc1 * gc2
 
     try:
-        d = -c * log(1 - p/c - q) - 0.5 * (1 - c) * log(1 - 2*q)
+        distance = -c * log(1 - p/c - q) - 0.5 * (1 - c) * log(1 - 2*q)
     except ValueError:
         raise ValueError("Cannot calculate log of a negative number.")
 
-    return d
+    return distance
+
+
+def rpkm(counts: np.ndarray, lengths: np.ndarray) -> np.ndarray:
+    """Calculate reads per kilobase transcript per million reads.
+
+    RPKM = (10^9 * C) / (N * L)
+
+    Where:
+    C = Number of reads mapped to a gene
+    N = Total mapped reads in the experiment
+    L = Exon length in base pairs for a gene
+
+    Args:
+        counts: count data where columns are individual samples
+            and rows are genes, of shape (N_genes, N_samples)
+        lengths: gene lengths in base pairs in the same order
+            as the rows in counts, of shape (N_genes, )
+
+    Returns:
+        normed: RPKM normalized counts matrix, of
+            shape (N_genes, N_samples)
+    """
+    c = counts.astype(float)
+    n = np.sum(c, axis=0)
+    n = n.reshape((1, n.shape[0]))
+    l = lengths.reshape((lengths.shape[0], 1))
+    normed = 1e9 * c / (n * l)
+
+    return normed
+
+
+def quantile_norm(x: np.ndarray, to_log: bool = False) -> np.ndarray:
+    """Normalize the columns of X to each have the same distribution.
+
+    Given an expression matrix (microarray data, read counts, etc) of M genes
+    by N samples, quantile normalization ensures all samples have the same
+    spread of data (by construction).
+
+    The data across each row are averaged to obtain an average column. Each
+    column quantile is replaced with the corresponding quantile of the average
+    column.
+
+    Args:
+        x: array of input data, of shape (N_genes, N_samples)
+        to_log: log-transform the data before normalising (default: False)
+
+    Returns:
+        xn: array of normalised data, of shape (N_genes, N_samples)
+    """
+    if to_log:
+        x = np.log(x + 1)
+    quantiles = np.mean(np.sort(x, axis=0), axis=1)
+
+    ranks = np.apply_along_axis(stats.rankdata, 0, x)
+    rank_indices = ranks.astype(int) - 1
+
+    xn = quantiles[rank_indices]
+
+    return xn

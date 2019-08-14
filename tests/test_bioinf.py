@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import pytest
+import numpy as np
 import prestools.bioinf as pb
 
 
@@ -224,3 +225,40 @@ def test_tamura_distance(sample_nt_long_1, sample_nt_long_2):
     expect = 2.603755899559136
     result = pb.tamura_distance(sample_nt_long_1, sample_nt_long_2)
     assert result == expect
+
+
+# pb.rpkm
+
+def test_rpkm(sample_gene_counts, sample_gene_lengths):
+    expect = np.array([
+        [225335.50543533, 114525.36331398, 149823.72302588, 179779.64409024],
+        [0., 0., 0., 733.40990133],
+        [0., 0., 0., 0.],
+        [40426.94801193, 194619.75108416, 145501.92735762, 103192.72022265]
+    ])
+    result = pb.rpkm(sample_gene_counts, sample_gene_lengths)
+    np.testing.assert_array_almost_equal(result, expect)
+
+
+# pb.quantile_norm
+
+def test_quantile_norm_raw(sample_gene_counts):
+    expect = np.array([
+        [6.280e+02, 2.455e+02, 6.280e+02, 6.280e+02],
+        [0.000e+00, 0.000e+00, 0.000e+00, 2.500e-01],
+        [0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00],
+        [2.455e+02, 6.280e+02, 2.455e+02, 2.455e+02]
+    ])
+    result = pb.quantile_norm(sample_gene_counts)
+    np.testing.assert_array_almost_equal(result, expect)
+
+
+def test_quantile_norm_log(sample_gene_counts):
+    expect = np.array([
+        [6.28121943, 5.41052327, 6.28121943, 6.28121943],
+        [0., 0., 0., 0.1732868],
+        [0., 0., 0., 0.],
+        [5.41052327, 6.28121943, 5.41052327, 5.41052327]
+    ])
+    result = pb.quantile_norm(sample_gene_counts, to_log=True)
+    np.testing.assert_array_almost_equal(result, expect)

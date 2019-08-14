@@ -9,6 +9,24 @@ import scipy.cluster.hierarchy as sch
 from typing import Union
 
 
+def flatten_image(img: np.ndarray, scale: bool = False) -> np.ndarray:
+    """Convert an image array to a single-dimension vector.
+
+    Args:
+        img: input image array of shape (l, h, d = 3)
+        scale: scale resulting vector dividing its values by 255
+            (default: False)
+
+    Returns:
+        v: reshaped vector of shape (l * h * d, 1)
+    """
+    v = img.reshape(img.shape[0] * img.shape[1] * img.shape[2], 1)
+    if scale:
+        return v / 255
+
+    return v
+
+
 def plot_heatmap_dendrogram(df: pd.DataFrame,
                             cmap: str = "RdBu_r",
                             title: str = "Cluster Heatmap",
@@ -20,21 +38,17 @@ def plot_heatmap_dendrogram(df: pd.DataFrame,
     created using Seaborn, starting from a given dataframe of
     correlations.
 
-    :param pd.Dataframe df: input dataframe of correlations
+    See Also:
+        https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html
 
-    :param str cmap: colormap to be used (default = 'RdBu_r')
-
-    :param str title: title for the resulting plot (default = 'Cluster
-        Heatmap')
-
-    :param Union[bool,str] save: if False, the plot will not be saved,
-        just shown; otherwise it is possible to specify the path/filename
-        where the file will be saved (default = False)
-
-    :param str method: method to be used to cluster the data
-        (default = 'ward')
-
-    :return: bool
+    Args:
+        df: input dataframe of correlations
+        cmap: colormap to use (default: 'RdBu_r')
+        title: title for resulting plot (default: 'Cluster Heatmap')
+        save: if False, the plot will not be saved, just shown; otherwise
+            it is possible to specify the path/filename where the file
+            will be saved (default: False)
+        method: method to use to cluster the data (default: 'ward')
     """
     if df.shape == (0, 0) or df.shape == (1, 1):
         return False
@@ -59,24 +73,18 @@ def plot_dendrogram(df: Union[pd.DataFrame, np.ndarray],
     dataframe of correlations. It is also possible to add a cut-off line
     given a distance to use for separating clusters.
 
-    :param Union[pd.Dataframe,np.ndarray] df: input dataframe of
-        correlations
+    See Also:
+        https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html
 
-    :param Union[bool,float] cut_off: if not False, a vertical line will
-        be added that can be used to better identify clusters
-        (default = False)
-
-    :param str title: title for the resulting plot
-        (default = 'Dendrogram')
-
-    :param Union[bool,str] save: if False, the plot will not be saved,
-        just shown; otherwise it is possible to specify the path/filename
-        where the file will be saved (default = False)
-
-    :param str method: method to be used to cluster the data
-        (default = 'ward')
-
-    :return: bool
+    Args:
+        df: input dataframe of correlations
+        cut_off: if not False, a vertical line will be added to better
+            identify clusters (default: False)
+        title: title for resulting plot (default: 'Dendrogram')
+        save: if False, the plot will not be saved, just shown; otherwise
+            it is possible to specify the path/filename where the file
+            will be saved (default: False)
+        method: method to use to cluster the data (default: 'ward')
     """
     if df.shape == (0, 0) or df.shape == (1, 1):
         return False
@@ -97,3 +105,39 @@ def plot_dendrogram(df: Union[pd.DataFrame, np.ndarray],
     plt.show()
 
     return True
+
+
+def reduce_xaxis_ticks(ax: plt.Axes, step: int):
+    """Show every ith x axis tick.
+
+    Args:
+        ax: axis to be adjusted
+        step: factor to reduce the number of x axis ticks by
+
+    Examples:
+        >>> fig, ax = plt.subplots()
+        >>> reduce_xaxis_ticks(ax, 5)
+    """
+    plt.setp(ax.xaxis.get_ticklabels(), visible=False)
+    for label in ax.xaxis.get_ticklabels()[step-1::step]:
+        label.set_visible(True)
+
+    return
+
+
+def reduce_yaxis_ticks(ax: plt.Axes, step: int):
+    """Show every ith y axis tick.
+
+    Args:
+        ax: axis to be adjusted
+        step: factor to reduce the number of y axis ticks by
+
+    Examples:
+        >>> fig, ax = plt.subplots()
+        >>> reduce_yaxis_ticks(ax, 5)
+    """
+    plt.setp(ax.yaxis.get_ticklabels(), visible=False)
+    for label in ax.yaxis.get_ticklabels()[step - 1::step]:
+        label.set_visible(True)
+
+    return

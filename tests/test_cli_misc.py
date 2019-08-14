@@ -60,7 +60,8 @@ def test_cli_prime_factors_large():
 def test_cli_wordcount():
     runner = CliRunner()
     expect = {"word": 2, "test": 1, "wordcount": 1}
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount word"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount word"])
     assert result.exit_code == 0
     assert eval(result.output.strip()) == expect
 
@@ -68,7 +69,9 @@ def test_cli_wordcount():
 def test_cli_wordcount_specific_word():
     runner = CliRunner()
     expect = "2"
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount word", "--word", "word"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount word",
+                                      "--word", "word"])
     assert result.exit_code == 0
     assert result.output.strip() == expect
 
@@ -76,7 +79,9 @@ def test_cli_wordcount_specific_word():
 def test_cli_wordcount_specific_word_not_present():
     runner = CliRunner()
     expect = "0"
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount word", "--word", "prova"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount word",
+                                      "--word", "prova"])
     assert result.exit_code == 0
     assert result.output.strip() == expect
 
@@ -84,7 +89,9 @@ def test_cli_wordcount_specific_word_not_present():
 def test_cli_wordcount_ignore_case_true():
     runner = CliRunner()
     expect = {"word": 2, "test": 1, "wordcount": 1}
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount WORD", "--ignore_case"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount WORD",
+                                      "--ignore_case"])
     assert result.exit_code == 0
     assert eval(result.output.strip()) == expect
 
@@ -92,7 +99,8 @@ def test_cli_wordcount_ignore_case_true():
 def test_cli_wordcount_ignore_case_false():
     runner = CliRunner()
     expect = {"word": 1, "test": 1, "wordcount": 1, "WORD": 1}
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount WORD"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount WORD"])
     assert result.exit_code == 0
     assert eval(result.output.strip()) == expect
 
@@ -100,7 +108,9 @@ def test_cli_wordcount_ignore_case_false():
 def test_cli_wordcount_specific_word_ignore_case_true():
     runner = CliRunner()
     expect = "2"
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount WORD", "--word", "word", "--ignore_case"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount WORD",
+                                      "--word", "word", "--ignore_case"])
     assert result.exit_code == 0
     assert result.output.strip() == expect
 
@@ -108,7 +118,9 @@ def test_cli_wordcount_specific_word_ignore_case_true():
 def test_cli_wordcount_specific_word_ignore_case_false():
     runner = CliRunner()
     expect = "1"
-    result = runner.invoke(cli.main, ["misc", "wordcount", "word test wordcount WORD", "--word", "word"])
+    result = runner.invoke(cli.main, ["misc", "wordcount",
+                                      "word test wordcount WORD",
+                                      "--word", "word"])
     assert result.exit_code == 0
     assert result.output.strip() == expect
 

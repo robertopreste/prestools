@@ -19,14 +19,17 @@ def hierarchical_clustering(df: Union[pd.DataFrame, np.ndarray],
     correlations, using the HierCluster class available in
     prestools.classes.
 
-    :param Union[pd.Dataframe,np.ndarray] df: input dataframe of
-        correlations
+    See Also:
+        https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html
 
-    :param str method: method to be used to cluster the data ['ward',
-        'single', 'complete', 'average', 'weighted', 'centroid', 'median']
-        (default = 'ward')
+    Args:
+        df: input dataframe of correlations
+        method: method to use to cluster the data ('ward', 'single',
+            'complete', 'average', 'weighted', 'centroid', 'median')
+            (default: 'ward')
 
-    :return: Union[HierCluster,None,ValueError]
+    Returns:
+        cl: instance of prestools.classes.HierCluster()
     """
     if method not in ["ward", "single", "complete", "average",
                       "weighted", "centroid", "median"]:
@@ -50,16 +53,15 @@ def find_n_clusters_elbow(df: Union[pd.DataFrame, np.ndarray],
     Find the suggested number of clusters for the given dataframe of
     correlations, using the elbow method.
 
-    :param Union[pd.Dataframe,np.ndarray] df: input dataframe of
-        correlations
+    Args:
+        df: input dataframe of correlations
+        plot: plot the resulting elbow plot (default: False)
+        method: method to use to cluster the data ('ward', 'single',
+            'complete', 'average', 'weighted', 'centroid', 'median')
+            (default: 'ward')
 
-    :param bool plot: plot the resulting elbow plot (default: False)
-
-    :param str method: method to be used to cluster the data ['ward',
-        'single', 'complete', 'average', 'weighted', 'centroid', 'median']
-        (default = 'ward')
-
-    :return: Union[int,None,ValueError]
+    Returns:
+        n_clusters: number of clusters found
     """
     if method not in ["ward", "single", "complete", "average",
                       "weighted", "centroid", "median"]:

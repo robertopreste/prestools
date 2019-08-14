@@ -111,7 +111,7 @@ def tamura_distance(seq_1, seq_2):
               'c'|'complement', 'rc'|'reverse_complement') 
               (default: 'rc'|'reverse_complement')""")
 def reverse_complement(sequence, conversion):
-    """Convert a nucleotide sequence into its reverse complement.
+    """Convert a nucleotide sequence into its reverse complement
 
     Convert a nucleotide SEQUENCE into its reverse, complement or reverse
     complement.
@@ -123,7 +123,7 @@ def reverse_complement(sequence, conversion):
 @bioinf.command()
 @click.argument("sequence")
 def shuffle_sequence(sequence):
-    """Shuffle the given sequence.
+    """Shuffle the given sequence
 
     Randomly shuffle a SEQUENCE, maintaining the same nucleotide composition.
     """
@@ -137,7 +137,7 @@ def shuffle_sequence(sequence):
               help="""Character alphabet to use to create the sequence ('nt', 
               'aa') (default: 'nt')""")
 def random_sequence(length, alphabet):
-    """Create a random sequence of the given length.
+    """Create a random sequence of the given length
 
     Create a random sequence of the given LENGTH using the specified ALPHABET
     (nucleotides or aminoacids).

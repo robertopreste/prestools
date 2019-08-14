@@ -22,7 +22,7 @@ def clustering():
               'single', 'complete', 'average', 'weighted', 'centroid', 
               'median'] (default = 'ward')""")
 def find_n_clusters_elbow(df, method):
-    """Find the number of clusters using the elbow method.
+    """Find the number of clusters using the elbow method
 
     Find the suggested number of clusters for the given dataframe of
     correlations, using the elbow method.

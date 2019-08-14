@@ -3,6 +3,7 @@
 # Created by Roberto Preste
 import os
 import re
+import time
 import numpy as np
 import pandas as pd
 from multiprocessing import Pool
@@ -16,12 +17,12 @@ def flatten(iterable: Iterable, drop_null: bool = False) -> List[Any]:
     different data types. It is also possible to drop null values (None)
     from the resulting list.
 
-    :param Iterable iterable: nested iterable to flatten
+    Args:
+        iterable: nested iterable to flatten
+        drop_null: filter out None from the flattened list (default: False)
 
-    :param bool drop_null: filter out None from the flattened list
-        (default = False)
-
-    :return: List[Any]
+    Returns:
+        flat list
     """
     def flattenator(element):
         for el in element:
@@ -48,16 +49,18 @@ def invert_dict(input_dict: dict, sort_keys: bool = False) -> dict:
     unordered data structures like dictionaries, but it may be useful when
     printing the results.
 
-    :param dict input_dict: original dictionary to be inverted
+    Args:
+        input_dict: original dictionary to be inverted
+        sort_keys: sort the keys in the inverted dictionary in
+            alphabetical order (default: False)
 
-    :param bool sort_keys: sort the keys in the inverted dictionary in
-        alphabetical order (default = False)
-
-    :return: dict
+    Returns:
+        new_dict: inverted dictionary
     """
     new_dict = {el: x for x in input_dict for el in input_dict[x]}
     if sort_keys:
         return {el: new_dict[el] for el in sorted(new_dict)}
+
     return new_dict
 
 
@@ -67,9 +70,11 @@ def prime_factors(number: int) -> List[int]:
     Calculate the prime factors of a given natural number. Note that 1 is
     not a prime number, so it will not be included.
 
-    :param int number: input natural number
+    Args:
+        number: input natural number
 
-    :return: List[int]
+    Returns:
+        factors: list of prime factors
     """
     factors = []
     i = 2
@@ -79,6 +84,7 @@ def prime_factors(number: int) -> List[int]:
             factors.append(i)
             continue
         i += 1
+
     return factors
 
 
@@ -88,13 +94,16 @@ def filter_type(input_list: List[Any], target_type: Type) -> List[Any]:
     Traverse a list and return a new list with only elements of the original
     list belonging to a given type.
 
-    :param List[Any] input_list: input list to filter
+    Args:
+        input_list: input list to filter
+        target_type: desired type to keep
 
-    :param Type target_type:
-
-    :return: List[Any]
+    Returns:
+        filtered: filtered list
     """
-    return [el for el in input_list if type(el) == target_type]
+    filtered = [el for el in input_list if type(el) == target_type]
+
+    return filtered
 
 
 def wordcount(sentence: str,
@@ -106,23 +115,23 @@ def wordcount(sentence: str,
     in the form of a dictionary; it is also possible to directly return
     the number of occurrences of a specific word.
 
-    :param str sentence: input sentence to count words from
+    Args:
+        sentence: input sentence to count words from
+        word: target word to count occurrences of
+        ignore_case: ignore case in the given sentence (default: False)
 
-    :param Union[bool,str] word: target word to count occurrences of
-
-    :param bool ignore_case: ignore case in the given sentence
-        (default: False)
-
-    :return: Union[dict,int]
+    Returns:
+        word_dict: dictionary of word counts
     """
     if ignore_case:
         sentence = sentence.casefold()
     words = re.sub(r"\W", " ", sentence).split()
     wordset = set(words)
-    wordict = {el: words.count(el) for el in wordset}
-    if word: 
-        return wordict.get(word, 0)
-    return wordict
+    word_dict = {el: words.count(el) for el in wordset}
+    if word:
+        return word_dict.get(word, 0)
+
+    return word_dict
 
 
 def equal_files(file1: str, file2: str) -> bool:
@@ -131,16 +140,15 @@ def equal_files(file1: str, file2: str) -> bool:
     First check whether the files have the same size, if so read them and
     check their content for equality.
 
-    :param str file1: first file to compare
-
-    :param str file2: second file to compare
-
-    :return: bool
+    Args:
+        file1: first file to compare
+        file2: second file to compare
     """
     if os.path.getsize(file1) == os.path.getsize(file2):
         with open(file1) as f1, open(file2) as f2:
             if f1.read() == f2.read():
                 return True
+
     return False
 
 
@@ -150,12 +158,9 @@ def benchmark(function: Callable) -> Callable:
     Decorator to run the given function and return the function name and
     the amount of time spent in executing it.
 
-    :param Callable function: function to benchmark
-
-    :return: Callable
+    Args:
+        function: function to benchmark
     """
-    import time
-
     def wrapper(*args, **kwargs) -> Tuple[str, float, Any]:
         """Return time spent to call a function.
 
@@ -189,13 +194,13 @@ def apply_parallel(df: pd.DataFrame,
     and the function will be applied to each separately; finally, the
     dataframe is reconstructed and returned.
 
-    :param pd.DataFrame df: input dataframe
+    Args:
+        df: input dataframe
+        function: function to apply
+        cores: number of cores to use (default: 4)
 
-    :param Callable function: function to apply
-
-    :param int cores: number of cores to use (default: 4)
-
-    :return: pd.DataFrame
+    Returns:
+        df: resulting dataframe
     """
     df_split = np.array_split(df, cores)
     pool = Pool(cores)

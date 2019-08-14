@@ -8,6 +8,7 @@ import pandas as pd
 
 @pytest.fixture
 def sample_image_array() -> np.ndarray:
+    """Return a simple array representing an image."""
     image = np.array([[[0.67826139, 0.29380381],
                        [0.90714982, 0.52835647],
                        [0.4215251, 0.45017551]],
@@ -22,10 +23,7 @@ def sample_image_array() -> np.ndarray:
 
 @pytest.fixture
 def sample_corr_df() -> pd.DataFrame:
-    """
-    Returns a sample dataframe with pairwise correlations of features.
-    :return: pd.Dataframe
-    """
+    """Return a sample dataframe with pairwise correlations of features."""
     df = pd.DataFrame({
         "feat_a": [1.0, -0.20, -0.05, -0.10, 0.17],
         "feat_b": [-0.20, 1.0, -0.04, -0.08, -0.15],
@@ -38,50 +36,35 @@ def sample_corr_df() -> pd.DataFrame:
 
 @pytest.fixture
 def sample_empty_df() -> pd.DataFrame:
-    """
-    Returns an empty dataframe (with shape (0, 0)).
-    :return: pd.Dataframe
-    """
+    """Return an empty dataframe (with shape (0, 0))."""
     df = pd.DataFrame()
     return df
 
 
 @pytest.fixture
 def sample_one_entry_df() -> pd.DataFrame:
-    """
-    Returns a dataframe with a single value (with shape (1, 1)).
-    :return: pd.Dataframe
-    """
+    """Return a dataframe with a single value (with shape (1, 1))."""
     df = pd.DataFrame({"feat_a": [1.0]}, index=["feat_a"])
     return df
 
 
 @pytest.fixture
 def sample_nt_sequence() -> str:
-    """
-    Returns a nucleotide sequence with length 100.
-    :return: str
-    """
+    """Return a nucleotide sequence with length 100."""
     seq = "ACGATCGTAGCTACATAATC" * 5
     return seq
 
 
 @pytest.fixture
 def sample_aa_sequence() -> str:
-    """
-    Returns an aminoacid sequence with length 100.
-    :return: str
-    """
+    """Return an aminoacid sequence with length 100."""
     seq = "ACDEFGHIKLMNPQRSTVWY" * 5
     return seq
 
 
 @pytest.fixture
 def sample_nt_long_1() -> str:
-    """Return a very long nucleotide sequence.
-
-    :return: str
-    """
+    """Return a very long nucleotide sequence."""
     seq = """AATGAGCCGGTGGCTGATCCTTCCTCTGTACATGGGCCTCATAGCCTAGTCTGATGGTGATGAGCT
     GCCCAATTATAGCAGGGTGAAAATGCGCAACCCGCCGAAAACTTGCCACGGATTGGATCTTACATCTTGCGGGGG
     TACATCGACGATCAGGCACTAGTTGATCCTTCACACGAGTTCAACAGCTATTGACTCCCTCCAGAGGAACGGAGA
@@ -154,10 +137,7 @@ def sample_nt_long_1() -> str:
 
 @pytest.fixture
 def sample_nt_long_2() -> str:
-    """Return a very long nucleotide sequence.
-
-    :return: str
-    """
+    """Return a very long nucleotide sequence."""
     seq = """ATTCCCCGGTAAAAGCAAAATTCTGTAGTCAGACGCCCGTACCACGTAGATGAGGATCTGCCCCCG
     TCATGAGGGCGACCACAATAGTAGGCGGCCACTGTCGGCAGTTACAAGAGCAGCGGCGGATTTCATCGGTACAAT
     CGCGGTTGCGCCGCCCGCCTAGTAAGCATTGCGCTCGAGTCCCTGTAATTCTCAGGCTAGGCAAGCACACAGATA
@@ -226,3 +206,20 @@ def sample_nt_long_2() -> str:
     CAGCGGCGCAATTACCGTCACGGCCAGACGGTCCACCCCTATTGTAAATATAGCTTCTTGCCTGCTGATGATCGT
     TAGATGAGCCACCTGGCATTAAAGCCAACGGCACAACTTACCATATGAATTCGCAGGTT"""
     return seq.replace("\n", "").replace(" ", "")
+
+
+@pytest.fixture
+def sample_gene_counts() -> np.ndarray:
+    """Return a sample gene expression count array."""
+    counts = np.array([[1272, 452, 288, 400],
+                       [0.0, 0.0, 0.0, 1.0],
+                       [0.0, 0.0, 0.0, 0.0],
+                       [164, 552, 201, 165]])
+    return counts
+
+
+@pytest.fixture
+def sample_gene_lengths() -> np.ndarray:
+    """Return a sample gene lengths array."""
+    lengths = np.array([3931, 2409, 5897, 2825])
+    return lengths
