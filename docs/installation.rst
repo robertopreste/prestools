@@ -4,7 +4,7 @@ Installation
 
 
 Stable release
---------------
+==============
 
 To install prestools, run this command in your terminal:
 
@@ -22,7 +22,7 @@ you through the process.
 
 
 From sources
-------------
+============
 
 The sources for prestools can be downloaded from the `Github repo`_.
 

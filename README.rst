@@ -25,7 +25,7 @@ prestools
    :target: https://saythanks.io/to/robertopreste
 
 
-Miscellaneous functions and utilities for Python programming. 
+Miscellaneous functions and utilities for Python programming.
 
 
 * Free software: MIT license
@@ -34,7 +34,7 @@ Miscellaneous functions and utilities for Python programming.
 
 
 Features
---------
+========
 
 Several ready-to-use functions for different tasks:
 
@@ -47,7 +47,7 @@ Several ready-to-use functions for different tasks:
 Please refer to the Usage_ section of the documentation for further details.
 
 Installation
-------------
+============
 
 Install prestools using pip **(Python 3 only)**::
 
@@ -56,7 +56,7 @@ Install prestools using pip **(Python 3 only)**::
 Please refer to the Installation_ section of the documentation for further details.
 
 Credits
--------
+=======
 
 This package was created with Cookiecutter_ and the `cc-pypackage`_ project template.
 

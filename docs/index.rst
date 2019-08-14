@@ -1,5 +1,9 @@
-Welcome to prestools's documentation!
-======================================
+.. include:: ../README.rst
+
+----
+
+Table of contents
+=================
 
 .. toctree::
    :maxdepth: 2
@@ -9,7 +13,6 @@ Welcome to prestools's documentation!
    installation
    usage
    api
-   modules
    contributing
    authors
    history

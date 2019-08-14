@@ -12,14 +12,12 @@ It is recommended that you only import the required module, as follows::
     import prestools.bioinf as pb       # bioinformatics utilities
     import prestools.clustering as pc   # clustering utilities
     import prestools.graph as pg        # plotting utilities
-    import prestools.learn as pl        # machine learning utilities
     import prestools.misc as pm         # miscellaneous
 
 Some functions are also available as CLI commands, and can be used as follows::
 
     prestools bioinf [command] [options]
     prestools clustering [command] [options]
-    prestools graph [command] [options]
     prestools misc [command] [options]
 
 Please refer to the API_ page for more information.

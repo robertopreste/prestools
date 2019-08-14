@@ -8,7 +8,7 @@ coverage==4.5.1
 Sphinx==1.8.1
 twine==1.13.0
 sphinx-click==2.2.0
-sphinxcontrib-napoleon
+sphinxcontrib-napoleon==0.7
 
 pytest==4.3.0
 pytest-runner==4.2
