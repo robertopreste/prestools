@@ -44,3 +44,11 @@ def test_flatten_image_scale(sample_image_array):
     result = pg.flatten_image(sample_image_array, scale=True)
     assert_array_almost_equal(result, expect)
 
+
+# pg.plot_confusion_matrix
+
+def test_plot_confusion_matrix_empty_cm():
+    cm = np.array([[0, 0], [0, 0]])
+    expect = False
+    result = pg.plot_confusion_matrix(cm, ["0", "1"])
+    assert result == expect

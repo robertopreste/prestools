@@ -21,9 +21,7 @@ class HandleExceptions(click.Group):
 @click.group(cls=HandleExceptions)
 @click.version_option()
 def main():
-    """
-    Main command line entry point for prestools.
-    """
+    """prestools - my personal functions and utilities for Python programming."""
     pass
 
 
@@ -31,7 +29,6 @@ main.add_command(bioinf)
 main.add_command(clustering)
 # main.add_command(graph)
 main.add_command(misc)
-# main.add_command(learn)
 
 
 if __name__ == "__main__":
