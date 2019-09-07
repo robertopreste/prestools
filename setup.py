@@ -9,9 +9,8 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ["Click>=7.0", "requests>=2.21.0", "scipy>=1.2.1",
-                "pandas>=0.24.1", "numpy>=1.16.2", "matplotlib>=3.0.3",
-                "seaborn>=0.9.0"]
+requirements = ["Click", "requests", "scipy", "pandas", "numpy", "matplotlib",
+                "seaborn"]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -30,7 +29,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Miscellaneous functions and utilities for Python programming.",
+    description="My personal functions and utilities for Python programming.",
     entry_points={
         'console_scripts': [
             'prestools=prestools.cli:main',
