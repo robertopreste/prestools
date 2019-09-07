@@ -77,7 +77,7 @@ History
 0.1.13 (2019-06-22)
 -------------------
 
-* Add short version arguments to `reverse_complement` bioinf function.
+* Add short version arguments to ``reverse_complement`` bioinf function.
 
 0.1.14 (2019-07-03)
 -------------------
@@ -95,3 +95,11 @@ History
 * Remove ``prestools.learn``;
 * Update related tests;
 * Fix documentation and API.
+
+0.2.1 (2019-09-07)
+------------------
+
+* Add ``plot_confusion_matrix`` to ``prestools.graph``;
+* Add related tests;
+* Update requirements;
+* Update documentation.

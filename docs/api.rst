@@ -25,12 +25,6 @@ prestools.graph
 .. automodule:: prestools.graph
     :members:
 
-prestools.learn
----------------
-
-.. automodule:: prestools.learn
-    :members:
-
 prestools.misc
 --------------
 
@@ -54,13 +48,6 @@ prestools clustering
 
 .. click:: prestools.commands.clustering:clustering
     :prog: clustering
-    :show-nested:
-
-prestools graph
----------------
-
-.. click:: prestools.commands.graph:graph
-    :prog: graph
     :show-nested:
 
 prestools misc

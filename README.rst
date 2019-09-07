@@ -13,10 +13,6 @@ prestools
         :target: https://prestools.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/robertopreste/prestools/shield.svg
-     :target: https://pyup.io/repos/github/robertopreste/prestools/
-     :alt: Updates
-
 .. image:: https://pyup.io/repos/github/robertopreste/prestools/python-3-shield.svg
      :target: https://pyup.io/repos/github/robertopreste/prestools/
      :alt: Python 3
@@ -25,7 +21,7 @@ prestools
    :target: https://saythanks.io/to/robertopreste
 
 
-Miscellaneous functions and utilities for Python programming.
+My personal functions and utilities for Python programming.
 
 
 * Free software: MIT license
@@ -40,7 +36,6 @@ Several ready-to-use functions for different tasks:
 
 * bioinformatics (``prestools.bioinf``)
 * data clustering (``prestools.clustering``)
-* machine learning (``prestools.learn``)
 * plotting (``prestools.graph``)
 * miscellaneous (``prestools.misc``)
 
