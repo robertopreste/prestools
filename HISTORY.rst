@@ -101,5 +101,6 @@ History
 
 * Add ``plot_confusion_matrix`` to ``prestools.graph``;
 * Add related tests;
+* Drop support for Python < 3.6;
 * Update requirements;
 * Update documentation.
